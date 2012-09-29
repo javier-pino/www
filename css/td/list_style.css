@@ -1,0 +1,95 @@
+/* 
+    Document   : list_style
+    Created on : 11/06/2012, 10:29:16 AM
+    Author     : Carlos Villanueva
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.wrapper {
+        display:block;
+        position:relative;
+        background-color: white;
+        width: 495px;
+        margin: 0px auto;
+        padding: 0px;
+        overflow:hidden;
+}
+.list_carousel {
+        display:block;
+        position:relative;
+        margin: 5px 0 0px 0px;
+        width: 515px;
+        /*border-bottom: 1px solid #999;
+        border-left: 0px solid #999;
+        border-right: 0px solid #999;*/
+        -moz-border-radius-bottomleft:6px !important;
+        -moz-border-radius-bottomright:6px !important;
+        -webkit-border-bottom-left-radius:6px !important;
+        -webkit-border-bottom-right-radius:6px !important;
+        border-bottom-left-radius:6px !important;
+        border-bottom-right-radius:6px !important;
+        overflow:hidden;
+        float:right;
+        margin-right:10px;
+}
+.list_carousel ul {
+        /*margin: 0;*/
+        padding: 0;
+        list-style: none;
+        display: block;
+        overflow:hidden;
+}
+.list_carousel li {
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+        border-left: 1px solid #999;
+        border-right: 1px solid #999;
+        width: 57px;
+        height: 15px;
+        padding: 0;
+        margin: 0px;
+        display: block;
+        float: left;
+        overflow:hidden;
+}
+.list_carousel a {
+        color: #999;
+}
+.list_carousel a:hover {
+    text-decoration: underline;
+}
+.list_carousel a.prev {
+        margin-left:0px;
+        *margin-left:-20px;
+        background:url(img/next_prev_buttons.png) no-repeat 0 0;
+        width:8px;
+        height:12px;
+        margin-top:1px;
+}
+.list_carousel a.next {
+        background:url(img/next_prev_buttons.png) no-repeat 100% 0;
+        margin-left:0px;
+        *margin-left:-20px;
+        width:8px;
+        height:12px;
+}
+.list_carousel.responsive {
+        width: auto;
+        margin-left: 0;
+}
+.clearfix {
+        float: none;
+        clear: both;
+}
+.caroufredsel_wrapper{
+        margin-left:20px !important;
+
+}
+

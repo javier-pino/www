@@ -1,0 +1,133 @@
+body{margin:0}
+img{border:0;-ms-interpolation-mode:bicubic}
+svg:not(:root){overflow:hidden}
+#header_inner{width:985px;margin:0 auto}
+body,h1,ul,li,p{margin:0;padding:0}
+body{min-width:985px;}
+body #global_container{background:#666666 url(img/gray.jpg) no-repeat center 0;min-width:1000px;position:relative; font:93.5%/1.5 Arial}#header_inner a{color:#FFF;text-decoration:none}
+#questionlinks a:hover{text-decoration:underline}
+#header ul{list-style:none}
+#header_container{height:auto !important;height:74px;min-height:74px}
+#header{background-image:-moz-linear-gradient( top,  #333 0% ,  #1a1a1a 100%  );background-image:-webkit-gradient( linear, 0  0% , 0  100% , from( #333 ), to( #1a1a1a ) );-moz-box-shadow:-2px 1px 2px 0 rgba(0,0,0,0.4) ;-webkit-box-shadow:-2px 1px 2px 0 rgba(0,0,0,0.4) ;box-shadow:-2px 1px 2px 0 rgba(0,0,0,0.4) ;background-color:#282828;border-bottom:4px solid #FF6633;height:35px;position:relative;z-index:100}
+#header .subnav{-moz-border-radius-bottomleft:8px;-webkit-border-bottom-left-radius:8px;-o-border-bottom-left-radius:8px;-ms-border-bottom-left-radius:8px;-khtml-border-bottom-left-radius:8px;border-bottom-left-radius:8px;-moz-border-radius-bottomright:8px;-webkit-border-bottom-right-radius:8px;-o-border-bottom-right-radius:8px;-ms-border-bottom-right-radius:8px;-khtml-border-bottom-right-radius:8px;border-bottom-right-radius:8px;-moz-box-shadow:1px 2px 2px 0 #0d0d0d ;-webkit-box-shadow:1px 2px 2px 0 #0d0d0d ;box-shadow:1px 2px 2px 0 #0d0d0d ;background-color:#1a1a1a;color:#ccc;display:none;padding:10px 0 10px 0;position:absolute;right:0px;top:43px;width:160px;z-index:1005}#header #header_inner{position:relative}
+#header h1{position:absolute;top:45px;left:0}
+#header p{
+	font-family:Arial;
+	color:#FFFFFF;
+	position:absolute;
+	top:46px;
+	left:230px;
+	z-index: 1000;
+	font-size:1.2em;
+	line-height:1.5;
+	z-index:1;
+}
+#header h1 a{display:block;width:223px;height:106px;text-indent:-10000px}
+#logoTD{background:url(img/logoTD.png) no-repeat;}
+#logoTDeventos{background:url(img/logoTD_eventos.png) no-repeat;}
+#logoTDayuda{background:url(img/logoTD_ayuda.png) no-repeat;}
+#logoTDviajes{background:url(img/logoTD_viajes.png) no-repeat;}
+#logoTDreservas{background:url(img/logoTD_reservas.png) no-repeat;}
+#header ul li{float:left;padding-left:0;padding-right:0;white-space:nowrap}
+#header div.layer2{
+	left:0px;
+	position:relative;
+	width:985px;
+	height: 72px;
+}#header ul.partners_links{float:left;height:40px;padding:4px 0 0 0}
+#header ul.partners_links li{font-size:1.1em;line-height:34px;padding:0 10px}
+#header ul.partners_links li.divisor{background:url(img/vertical_gray.gif) right 50% no-repeat;padding:0 0 0 0}
+#header .links li:hover ul.subnav{display:block}
+#header_nav{float:right;list-style:none}
+#header_nav li{padding-bottom:10px;text-align:center;text-shadow:0 2px 2px #000;position:relative;font-size:1.4em}
+#header_nav li.combination_1 a{display:block}
+#header_nav li.combination_2 a{display:none}
+#header_nav li a{display:block;overflow:hidden;padding:14px 16px 8px 16px}
+#header_nav li a.current,#header_nav li a:hover{background-color:#141414;background-image: linear-gradient(bottom, rgb(20,20,20) 0%, rgb(0,0,0) 100%); background-image:-moz-linear-gradient( top,  #141414 0% ,  #000 100%  );background-image:-webkit-gradient( linear, 0  0% , 0  100% , from( #141414 ), to( #000 ) );background-image: -ms-linear-gradient(bottom, rgb(20,20,20) 0%, rgb(0,0,0) 100%);color:#fff;margin-top:6px;padding-top:6px;padding-top:7px\9;padding-bottom:0px;-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;-o-border-radius:5px 5px 0 0;-ms-border-radius:5px 5px 0 0;-khtml-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;background-clip:padding-box; margin-left:10px}
+#header_nav li a.current{background-color:#FF6633;background-image:-moz-linear-gradient( top,  #FF6600 0% ,  #FF6633 100%  );background-image:-webkit-gradient( linear, 0  0% , 0  100% , from( #FF6600 ), to( #FF6633 ) );text-shadow:0 2px 2px #984C33;font-weight:bold}
+#cities {
+	position: absolute;
+	margin-left: 230px;
+	margin-top: -13px;
+	*margin-top: -1px;
+	float: left;
+	
+}
+#cities h2{
+	float: left;
+	font-family: Verdana;
+	font-size: 3.3em;
+	padding: 0 20px 0 0px;
+	display: inline;
+	color:#FFFFFF;
+	font-weight:normal;
+	text-shadow:0 2px 2px #999;
+	text-align: left;
+	margin-bottom:0px;
+}
+#cities a:hover {
+	text-decoration:none;
+}
+#cities p {
+text-align:left;
+font-family: Verdana;
+font-size: 1.2em;
+padding: 5px 20px 0 0px;
+*padding-top:5px;
+color:#FFFFFF;
+margin-left: -226px;
+margin-top: 10px;
+*margin-top: 3px;
+min-width: 200px;
+width:200px;
+min-width:200px\9;
+width:200px\9;
+}
+#cities h2 a{
+background: url(img/newhd_city_arrow.png) 100% 60% no-repeat;
+color: #009933;
+padding-right: 20px;
+}
+
+#cities p a{
+color: #878786;
+}
+
+#header_inner .account {
+	width: 300px;
+	float: right;
+	margin-right: 0px;
+	margin-top:2px;
+	text-align: right;
+	color: #FFF;
+	font-size:14px;
+	padding: 38px 0 0 668px;
+	*padding-left:0px;
+	*padding-top:0px;
+	position: absolute;
+	*position: relative;
+	*margin-right: -200px;
+	*margin-top:35px;
+	z-index:-1;
+}
+
+#header_inner .header_nav {
+	z-index:0;
+}
+
+#header_inner .balance {
+	font-size:13px;
+	line-height: 0.6em;
+	color:#FF6633;
+	font-weight:bold;
+}
+
+#header_inner a:hover {
+	text-decoration:underline;
+}
+
+#header_nav a:hover, #cities a:hover {
+	text-decoration:none;
+}
+
+#toolbar{text-align:justify;width:985px;margin:auto;margin-top:80px;padding-left:0;padding-top:0;padding-bottom:0;color:#8c8c8c}

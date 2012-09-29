@@ -1,0 +1,185 @@
+#coin-slider{
+	overflow:hidden;
+	width:600px !important;
+	height:360px !important;
+	left:15px;
+	top:0px;
+	margin:0;
+	position:absolute;
+	border-radius: 10px;
+	/*border:5px solid #e2e2e2;
+	border-radius:10px;
+	-webkit-border-radius:10px;*/
+}
+#coin-slider.img{
+	border-radius:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+}
+.coin-slider{
+	position:relative;
+	margin:0 auto;
+	width:985px !important;
+	height:360px !important;
+	overflow:hidden;
+}
+	#page1 .coin-slider{
+		position:relative;
+		margin: 0 auto 0 15px;
+		width:600px;
+		height:360px !important;
+		border-radius:10px;
+		-webkit-border-radius:10;
+		-moz-border-radius:10px;
+	}
+.cs-buttons{
+	position:absolute;
+	bottom:0;
+	right: 0px;
+    top: 35px;
+}
+
+.bot {
+	color:#666666;
+	display:block;
+	font-weight:normal;
+	padding-left: 15px;
+	margin-top: 5px;
+}
+
+.restime {
+	color:#000;
+	display:block;
+	font-weight:normal;
+	padding-left: 15px;
+	margin-top: 2px;
+}
+.restime a {
+	color:#000;
+        text-decoration: none;
+}
+.restime a:hover {
+	color:#000;
+        text-decoration: underline;
+}
+
+.slider-img1,
+.slider-img2,
+.slider-img3,
+.slider-img4 {
+	display:block;
+	float:left;
+	width:65px;
+	margin-right: 18px;
+	height:68px;
+	background:url(img/slide-1min.png) no-repeat 0 0;
+}
+
+.slider-img2 {
+	background:url(img/slide-2min.png) no-repeat 0 0;
+}
+
+.slider-img3 {
+	background:url(img/slide-3min.png) no-repeat 0 0;
+}
+
+.slider-img4 {
+	background:url(img/slide-4min.png) no-repeat 0 0;
+}
+
+.text1 {
+	color:#666666;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:18px;
+	display:inline-block;
+	margin-bottom: 6px;
+	*margin-bottom: -10px;
+	font-weight:bold;
+    margin-left: 0;
+    margin-top: 15px;
+    padding: 0px 15px;
+	line-height: 0em;
+	z-index:9999;
+	zoom:1;
+	*display:block;
+	*line-height: 1em;
+}
+
+.link3 {
+			display:inline-block;
+			width:133px;
+			height:27px;
+			background:url(img/buttonaval.png) no-repeat 0 0;
+			font-size:0;
+			line-height:0;
+			margin-left: 235px;
+			text-decoration:none;
+			margin-top:-20px;
+			z-index:9999;
+		}
+		.link3:hover {
+			background-position:0 0px;
+		}
+
+.more_resbutton {
+	position:absolute;
+	width:167px;
+	height:37px;
+	background:url(img/more_resbutton.png) no-repeat 0 0;
+	font-size:0;
+	line-height:0;
+	left: 725px;
+	text-decoration:none;
+	margin-top:-30px;
+	z-index:49;
+}
+		.more_resbutton:hover {
+			background-position:0 0px;
+		}
+
+
+
+.cs-buttons a.button-last {background:url(img/pagination-tail2.gif) repeat-x 0 0; border-top:1px solid #7e0000 !important;}
+.cs-buttons a.button-next {background:url(img/pagination-next-tail.gif) repeat-x 0 0 !important; border-top:1px solid #7e0000 !important;}
+
+	#cs-buttons-coin-slider span {
+		padding:0px 0 0 0px;
+		font-size:13px;
+		line-height:18px;
+		display:block;
+		position:relative;
+		margin:0 0 1px 0;
+		color:#000;
+		background:url(img/line_csbutton) no-repeat 14px 70px;
+		width:370px;
+		height:71px;
+	}
+	.coin-slider .cs-buttons a.cs-active span, .coin-slider .cs-buttons a:hover span {background: url(img/pagination-active-bg.gif) no-repeat 0 0 !important;}
+	.cs-buttons a.button-next span {background:url(img/pagination-next-bg.gif) no-repeat 0 0 !important;}
+	.cs-buttons a.button-last span {background:url(img/pagination-bg2.gif) no-repeat 0 0;}
+	.cs-buttons a i {
+		display:none;
+		position:absolute;
+		left:-17px;
+		top:32px;
+		background:url(img/pagination-marker.png) no-repeat 0 0;
+		width:17px;
+		height:34px;
+	}
+	.cs-buttons a.cs-active i, .cs-buttons a:hover i {display:block;}
+	.cs-buttons strong.extra {font-size:21px;}
+	.cs-buttons b {
+		font-size:11px;
+		line-height:15px;
+		color:#fffb98;
+		margin:-2px 0 0 0;
+		padding:0 0 0 3px;
+		width:270px;
+	}
+	.cs-buttons span:hover,
+.cs-buttons .cs-active span {
+    background: url("img/bg4.png") no-repeat scroll 0 0 transparent !important;
+}
+#cs-title-coin-slider, .cs-title {display:none !important;}
+.cs-prev,.cs-next{background:#262626;color:#fff;padding:0px 10px; display:none;}
+.cs-prev:hover,.cs-next:hover{background:#fff;color:#262626}

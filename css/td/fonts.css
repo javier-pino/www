@@ -1,0 +1,16 @@
+
+@font-face {
+	font-family: 'Conv_BodoniBT-Bold';
+	src: url('fonts/BodoniBT-Bold.eot');
+	src: local('☺'), url('fonts/BodoniBT-Bold.ttf') format('truetype'), url('fonts/BodoniBT-Bold.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_BodoniBT-BookItalic';
+	src: url('fonts/BodoniBT-BookItalic.eot');
+	src: local('☺'), url('fonts/BodoniBT-BookItalic.ttf') format('truetype'), url('fonts/BodoniBT-BookItalic.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

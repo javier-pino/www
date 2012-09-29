@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+img {border:0 none !important;}
+.rounded {-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;}
+
+
+#mainMenu {width:988px;height:31px;float:left;margin-top:0px;margin-bottom:4px;overflow:hidden; *padding-bottom:4px;}
+#mainMenuCiudades {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuCiudades.png) no-repeat}
+#mainMenuCiudades:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuCiudades.png) no-repeat; background-position:0 50%}
+#mainMenuViajes {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuViajes.png) no-repeat}
+#mainMenuViajes:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuViajes.png) no-repeat; background-position:0 50%}
+#mainMenuEventos {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuEventos.png) no-repeat}
+#mainMenuEventos:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuEventos.png) no-repeat; background-position:0 50%}
+#mainMenuReservas {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuReservas.png) no-repeat}
+#mainMenuReservas:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuReservas.png) no-repeat; background-position:0 50%}
+#mainMenuAyuda {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuAyuda.png) no-repeat}
+#mainMenuAyuda:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuAyuda.png) no-repeat; background-position:0 50%}
+#mainMenuRifas {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuRifas.png) no-repeat}
+#mainMenuRifas:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuRifas.png) no-repeat; background-position:0 50%}
+#mainMenuTO {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px; background:url(img/menuTO.png) no-repeat}
+#mainMenuTO:hover {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#000;font-size:18px;background:url(img/menuTO.png) no-repeat; background-position:0 50%}
+
+#mainMenuCiudades.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuCiudades.png) no-repeat; background-position:0 100%}
+#mainMenuViajes.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuViajes.png) no-repeat; background-position:0 100%}
+#mainMenuEventos.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuEventos.png) no-repeat; background-position:0 100%}
+#mainMenuReservas.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuReservas.png) no-repeat; background-position:0 100%}
+#mainMenuAyuda.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuAyuda.png) no-repeat; background-position:0 100%}
+#mainMenuRifas.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuRifas.png) no-repeat; background-position:0 100%}
+#mainMenuTO.current {width:140px;height:31px;float:left;display:block;text-decoration:none;text-align:center;color:#FFF;font-size:18px;background:url(img/menuTO.png) no-repeat; background-position:0 100%}
+
+#mainMenuTabText {margin-top:1px; margin-left:24px; font-family:Verdana; letter-spacing:-0.05em; font-size:22px; color:#77787B;}
+#mainMenuDivisor {width:1px;height:31px;float:left;background:#77787B;}
+

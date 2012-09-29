@@ -1,0 +1,61 @@
+/* 
+    Document   : view_style
+    Created on : 12/06/2012, 02:11:22 PM
+    Author     : Carlos Villanueva
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.wrapper {
+    background-color: white;
+    width: 984px;
+    height:199px;
+    margin: 0px auto;
+    padding: 0px;
+    border-bottom-left-radius:6px !important;
+    border-bottom-right-radius:6px !important;
+    overflow:hidden;
+}
+.list_carousel {
+    display:block;
+    position:relative;
+    background-color: #fff;
+    margin: 0 0 0px 0px;
+    width: 984px;
+    -moz-border-radius-bottomleft:6px !important;
+    -moz-border-radius-bottomright:6px !important;
+    -webkit-border-bottom-left-radius:6px !important;
+    -webkit-border-bottom-right-radius:6px !important;
+    border-bottom-left-radius:6px !important;
+    border-bottom-right-radius:6px !important;
+    overflow:hidden;
+}
+.list_carousel ul {
+    padding: 0;
+    list-style: none;
+    display: block;
+    overflow:hidden;
+}
+.list_carousel li {
+    font-size: 40px;
+    color: #999;
+    text-align: center;
+    background-color: #eee;
+    border: 0px solid #999;
+    width: 328px;
+    height: 199px;
+    padding: 0;
+    margin: 0px;
+    display: block;
+    float: left;
+    overflow:hidden;
+}
+.list_carousel.responsive {
+    width: auto;
+    margin-left: 0;
+}

@@ -1,0 +1,62 @@
+/* 
+    Document   : sociaklNetworks
+    Created on : 13/03/2012, 04:02:57 PM
+    Author     : 1
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.footer_like_banner {    
+    background-color: rgba(188, 188, 188, 0.9); /* Firefox y los demás */        
+    _background-color: rgb(188, 188, 188);   /* Sólo IE6 */
+    background-color: rgb(188, 188, 188)\9;   /* Sólo IE8 */
+    bottom: 0;
+    left: 0;
+    padding-top: 4px;
+    position: fixed;
+    width: 100%;
+    z-index: 50;    
+    height: 25px;
+}
+.footer_like_banner_container {
+    margin: 0 auto;
+    width: 990px;
+}
+
+.footer_like_spacer {
+    padding-bottom: 28px;
+}
+
+.footer_like_hide_fb {
+    margin-left: 315px;
+}
+
+.social_separated {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.footer_like_hide span{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#333333;    
+    line-height:19px;
+    margin-left: 250px;
+    cursor: pointer;
+
+    font-size:9px; 
+    font-weight:bold;
+    text-transform: lowercase;
+}
+
+.footer_like_hide span:hover{
+    text-decoration:underline;
+}
+.footer_like_banner_container.center {
+    align:center;
+}
+
