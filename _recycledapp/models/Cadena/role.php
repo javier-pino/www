@@ -101,11 +101,7 @@ class Role Extends TD_Model {
         $query = $this->qb->select('w')
                 ->from('Entities\AdWindow', 'w')                                                
                 ->orderBy('w.module, w.name')
-                ->getQuery();      
-        
-        echo $query->getSQL();
-        die;
-        
+                ->getQuery();                      
         try {                        
              //Si tiene un rol asociado buscarlo
             $result = $query->getResult();             
@@ -177,7 +173,7 @@ class Role Extends TD_Model {
                        
             $inserted = FALSE;        
             try {                                         
-                $this->db->insert('ad_role_windows', $ad_role_window);
+                $inserted = $this->db->insert('ad_role_windows', $ad_role_window);
             } catch ( Exception $e ) {}
             if (!$inserted) {
                 $this->session_messages->set_error('Ocurrió un error al guardar los permisos del rol'); 
@@ -188,6 +184,35 @@ class Role Extends TD_Model {
         $this->session_messages->set_message('Rol creado con exito'); 
         return TRUE;
     }    
+    
+    /** Esta función retorna todas los posibles roles de un usuario */
+    public function get_all_roles () {         
+                
+        //Como se tiene el rol, se buscan las ventanas existentes asociadas
+        $result = array();    
+        $this->db->from('ad_role')->order_by("name", "asc");
+        try {
+            $result = $this->db->get();
+            var_dump($result, $this->db)
+                    ;            
+        } catch (Exception $e) {
+            
+        }
+        die;
+        
+
+        $this->qb = $this->em->createQueryBuilder();
+        $query = $this->qb->select('w')
+                ->from('Entities\AdWindow', 'w')                                                
+                ->orderBy('w.module, w.name')
+                ->getQuery();                      
+        try {                        
+             //Si tiene un rol asociado buscarlo
+            $result = $query->getResult();             
+        } catch (Exception $e) {}
+        return $result;        
+    }
+    
 }
 /* Fin de archivo user.php */
 /* Ubicación: */

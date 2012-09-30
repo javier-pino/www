@@ -19,6 +19,7 @@ $(function() {
     new_datatable($('table'));    
     
     $( "input:submit, button").button();
+    $( "input.date").datepicker();
     
     $(document).delegate('div.message', 'click', function () {
         $(this).hide();        
