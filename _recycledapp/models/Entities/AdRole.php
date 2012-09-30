@@ -57,6 +57,13 @@ class AdRole
     private $created;
 
     /**
+     * @var bigint $createdby
+     *
+     * @Column(name="CreatedBy", type="bigint", nullable=true)
+     */
+    private $createdby;
+
+    /**
      * @var datetime $updated
      *
      * @Column(name="Updated", type="datetime", nullable=false)
@@ -64,24 +71,12 @@ class AdRole
     private $updated;
 
     /**
-     * @var Entities\AdUser
+     * @var bigint $updatedby
      *
-     * @ManyToOne(targetEntity="AdUser")
-     * @JoinColumns({
-     *   @JoinColumn(name="UpdatedBy", referencedColumnName="AD_User_ID")
-     * })
+     * @Column(name="UpdatedBy", type="bigint", nullable=true)
      */
     private $updatedby;
 
-    /**
-     * @var Entities\AdUser
-     *
-     * @ManyToOne(targetEntity="AdUser")
-     * @JoinColumns({
-     *   @JoinColumn(name="CreatedBy", referencedColumnName="AD_User_ID")
-     * })
-     */
-    private $createdby;
 
 
     /**
@@ -195,6 +190,26 @@ class AdRole
     }
 
     /**
+     * Set createdby
+     *
+     * @param bigint $createdby
+     */
+    public function setCreatedby($createdby)
+    {
+        $this->createdby = $createdby;
+    }
+
+    /**
+     * Get createdby
+     *
+     * @return bigint 
+     */
+    public function getCreatedby()
+    {
+        return $this->createdby;
+    }
+
+    /**
      * Set updated
      *
      * @param datetime $updated
@@ -217,9 +232,9 @@ class AdRole
     /**
      * Set updatedby
      *
-     * @param AdUser $updatedby
+     * @param bigint $updatedby
      */
-    public function setUpdatedby(Entities\AdUser $updatedby)
+    public function setUpdatedby($updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -227,30 +242,10 @@ class AdRole
     /**
      * Get updatedby
      *
-     * @return AdUser 
+     * @return bigint 
      */
     public function getUpdatedby()
     {
         return $this->updatedby;
-    }
-
-    /**
-     * Set createdby
-     *
-     * @param AdUser $createdby
-     */
-    public function setCreatedby(Entities\AdUser $createdby)
-    {
-        $this->createdby = $createdby;
-    }
-
-    /**
-     * Get createdby
-     *
-     * @return AdUser 
-     */
-    public function getCreatedby()
-    {
-        return $this->createdby;
     }
 }

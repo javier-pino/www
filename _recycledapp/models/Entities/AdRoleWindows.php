@@ -166,7 +166,7 @@ class AdRoleWindows
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\AdRole $adRole)
+    public function setAdRole(Entities\ADRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -186,7 +186,7 @@ class AdRoleWindows
      *
      * @param AdWindow $adWindow
      */
-    public function setAdWindow(Entities\AdWindow $adWindow)
+    public function setAdWindow(Entities\ADWindow $adWindow)
     {
         $this->adWindow = $adWindow;
     }

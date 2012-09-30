@@ -36,6 +36,13 @@ class AdUser
     private $updated;
 
     /**
+     * @var bigint $updatedby
+     *
+     * @Column(name="UpdatedBy", type="bigint", nullable=true)
+     */
+    private $updatedby;
+
+    /**
      * @var string $login
      *
      * @Column(name="Login", type="string", length=60, nullable=false)
@@ -99,17 +106,7 @@ class AdUser
     private $birthday;
 
     /**
-     * @var Entities\AdUser
-     *
-     * @ManyToOne(targetEntity="AdUser")
-     * @JoinColumns({
-     *   @JoinColumn(name="UpdatedBy", referencedColumnName="AD_User_ID")
-     * })
-     */
-    private $updatedby;
-
-    /**
-     * @var Entities\AdUser
+     * @var Entities\ADUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -119,7 +116,7 @@ class AdUser
     private $supervisor;
 
     /**
-     * @var Entities\AdUser
+     * @var Entities\ADUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -178,6 +175,26 @@ class AdUser
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set updatedby
+     *
+     * @param bigint $updatedby
+     */
+    public function setUpdatedby($updatedby)
+    {
+        $this->updatedby = $updatedby;
+    }
+
+    /**
+     * Get updatedby
+     *
+     * @return bigint 
+     */
+    public function getUpdatedby()
+    {
+        return $this->updatedby;
     }
 
     /**
@@ -361,31 +378,11 @@ class AdUser
     }
 
     /**
-     * Set updatedby
-     *
-     * @param AdUser $updatedby
-     */
-    public function setUpdatedby(Entities\AdUser $updatedby)
-    {
-        $this->updatedby = $updatedby;
-    }
-
-    /**
-     * Get updatedby
-     *
-     * @return AdUser 
-     */
-    public function getUpdatedby()
-    {
-        return $this->updatedby;
-    }
-
-    /**
      * Set supervisor
      *
      * @param AdUser $supervisor
      */
-    public function setSupervisor(Entities\AdUser $supervisor)
+    public function setSupervisor(Entities\ADUser $supervisor)
     {
         $this->supervisor = $supervisor;
     }
@@ -403,9 +400,9 @@ class AdUser
     /**
      * Set createdby
      *
-     * @param Entities\AdUser $createdby
+     * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\AdUser $createdby)
+    public function setCreatedby(Entities\ADUser $createdby)
     {
         $this->createdby = $createdby;
     }

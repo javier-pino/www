@@ -7,6 +7,8 @@ class Escritorio extends TD_Role_Controller {
         //Se garantiza que el usuario esté logueado
         $this->need_login();                
         $this->data['title'] = $this->client_name . ' - Escritorio';
+        $this->data['header'] = 'Escritorio';
+        
         $this->load_as_content('escritorio');        
         
     }

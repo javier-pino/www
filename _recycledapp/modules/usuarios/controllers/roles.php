@@ -9,12 +9,20 @@
  */
 class Roles extends TD_Role_Controller {
 
+    /** Función encargada de listar roles de usuario dando un link para su edición*/
+    public function index() {
+        
+        
+    }
+    
+    /** Función encargada de crear roles de usuario */
     public function crear() {
         
         $this->need_role_authorization();
 
         //Cargar las variables de la vista                
         $this->data['title'] = $this->client_name . ' - Crear Rol';
+        $this->data['header'] = 'Crear Rol';
 
         //Cargar el formulario y sus atributos
         $this->load->helper('form');
@@ -80,7 +88,7 @@ class Roles extends TD_Role_Controller {
                             array(                                
                                 'name' => "window[{$name}]",
                                 'id' => "window[{$name}]",                                
-                                'value'=> 1,
+                                'value'=> $window->getAdWindowId(),
                                 'checked' => ( isset( $_POST["window"][$name] ) ? TRUE : FALSE),
                             )
                     );                   
@@ -106,14 +114,16 @@ class Roles extends TD_Role_Controller {
             $data['title'] = $this->client_name . ' - Crear Rol';
             $this->load_as_content('roles/crear');
             
-        } else {
+        } else {            
             
             //Aquí debe registrarse el rol                        
             $this->load->model('Cadena/role');
-            $this->role->create_role_with_permissions($this->login_user);
-                       
-            //Envia al usuario a su escritorio
-            //redirect(base_url('escritorio'));
+            $success = $this->role->create_role_with_permissions($this->login_user_id);            
+            if ($success) {
+                redirect(base_url('usuarios/roles/editar'));
+            } else {
+                redirect(base_url('escritorio'));
+            }            
         }        
     }
     

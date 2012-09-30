@@ -141,7 +141,7 @@ class EntitiesAdRoleProxy extends \Entities\AdRole implements \Doctrine\ORM\Prox
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'adRoleId', 'finder', 'name', 'description', 'adTreeMenuId', 'created', 'updated', 'updatedby', 'createdby');
+        return array('__isInitialized__', 'adRoleId', 'finder', 'name', 'description', 'adTreeMenuId', 'created', 'createdby', 'updated', 'updatedby');
     }
 
     public function __clone()

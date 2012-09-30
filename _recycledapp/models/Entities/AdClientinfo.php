@@ -57,7 +57,7 @@ class AdClientinfo
     private $keeplogdays;
 
     /**
-     * @var Entities\AdClient
+     * @var Entities\ADClient
      *
      * @ManyToOne(targetEntity="AdClient")
      * @JoinColumns({
@@ -183,7 +183,7 @@ class AdClientinfo
      *
      * @param AdClient $adClient
      */
-    public function setAdClient(Entities\AdClient $adClient)
+    public function setAdClient(Entities\ADClient $adClient)
     {
         $this->adClient = $adClient;
     }

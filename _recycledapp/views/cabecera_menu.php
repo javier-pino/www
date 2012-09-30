@@ -33,4 +33,4 @@
     </div> 
 </div>
 <div id="main">    
-    <h2>Crear Rol</h2> 
+    <h2><?php echo $header; ?></h2> 

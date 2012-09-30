@@ -50,7 +50,7 @@ class AdUserRoles
     private $updatedby;
 
     /**
-     * @var Entities\AdRole
+     * @var Entities\ADRole
      *
      * @ManyToOne(targetEntity="AdRole")
      * @JoinColumns({
@@ -60,7 +60,7 @@ class AdUserRoles
     private $adRole;
 
     /**
-     * @var Entities\AdUser
+     * @var Entities\ADUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -166,7 +166,7 @@ class AdUserRoles
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\AdRole $adRole)
+    public function setAdRole(Entities\ADRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -186,7 +186,7 @@ class AdUserRoles
      *
      * @param AdUser $adUser
      */
-    public function setAdUser(Entities\AdUser $adUser)
+    public function setAdUser(Entities\ADUser $adUser)
     {
         $this->adUser = $adUser;
     }

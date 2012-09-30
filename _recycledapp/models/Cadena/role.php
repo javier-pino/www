@@ -74,10 +74,12 @@ class Role Extends TD_Model {
         //Como se tiene el rol, se buscan las ventanas existentes asociadas
         $result = array();        
         $this->qb = $this->em->createQueryBuilder();
-        $query = $this->qb->select('rw, ro')
+        $query = $this->qb->select('rw, ro, wi')
                 ->from('Entities\ADRoleWindows', 'rw')                
                 ->join('rw.adRole', 'ro')
+                ->join('rw.adWindow', 'wi')
                 ->where('ro.adRoleId ='. $ad_role->getAdRoleId())
+                ->andWhere("wi.class != 'edit'")
                 ->getQuery();                        
         try {                        
              //Si tiene un rol asociado buscarlo
@@ -97,9 +99,13 @@ class Role Extends TD_Model {
         $result = array();        
         $this->qb = $this->em->createQueryBuilder();
         $query = $this->qb->select('w')
-                ->from('Entities\ADWindow', 'w')                                
+                ->from('Entities\AdWindow', 'w')                                                
                 ->orderBy('w.module, w.name')
-                ->getQuery();                        
+                ->getQuery();      
+        
+        echo $query->getSQL();
+        die;
+        
         try {                        
              //Si tiene un rol asociado buscarlo
             $result = $query->getResult();             
@@ -130,40 +136,58 @@ class Role Extends TD_Model {
     
     
     /** Esta función crea un rol y le asigna aquellos permisos */
-    public function create_role_with_permissions(\Entities\AdUser $creator) {
+    public function create_role_with_permissions($login_user_id) {
+               
+        $time = date('Y-m-d H:i:s', time());
+               
+        //Se crea el rol actual
+        $ad_role = array(        
+            'Description' => $this->input->post('description'),
+            'Finder' => $this->input->post('finder'),
+            'Name' => $this->input->post('name'),            
+            'Created' => $time,
+            'CreatedBy' => $login_user_id,
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
         
-        //Se coloca la fecha actual
-        $now = new \DateTime("now");              
-        
-        $role = new Entities\AdRole();
-        $role->setCreated($now);
-        $role->setCreatedby($creator);        
-        $role->setUpdated($now);
-        $role->setUpdatedby($creator);        
-        $role->setDescription($this->input->post('description'));
-        $role->setFinder($this->input->post('finder'));
-        $role->setName($this->input->post('name'));
-        
-        //Se almacena el rol
+        $inserted = FALSE;        
         try {
-            $this->em->persist($role);
-            $this->em->flush();
-        } catch (Exception $e) {
-            
+            $inserted = $this->db->insert('ad_role', $ad_role);            
+        } catch ( Exception $e ) {}
+        
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al guardar el rol del usuario'); 
+            return FALSE;
         }
         
+        $ad_role_id = $this->db->insert_id();
         
-        var_dump($role);
-        die;        
+        //Para cada una de las ventanas agregar el permiso al rol
+        $window = $this->input->post('window');                
+        foreach ($window as $key => $value) {
+            $ad_role_window = array(
+                'AD_Role_ID' => $ad_role_id,
+                'AD_Window_ID' => $value,
+                'Created' => $time,
+                'CreatedBy' => $login_user_id,
+                'Updated' => $time,
+                'UpdatedBy' =>  $login_user_id,  
+            );
+                       
+            $inserted = FALSE;        
+            try {                                         
+                $this->db->insert('ad_role_windows', $ad_role_window);
+            } catch ( Exception $e ) {}
+            if (!$inserted) {
+                $this->session_messages->set_error('Ocurrió un error al guardar los permisos del rol'); 
+                return FALSE;
+            }                        
+        }
         
-        
-        
-        
-        
-        
-    }
-    
+        $this->session_messages->set_message('Rol creado con exito'); 
+        return TRUE;
+    }    
 }
-
 /* Fin de archivo user.php */
 /* Ubicación: */
