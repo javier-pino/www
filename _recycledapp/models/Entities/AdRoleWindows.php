@@ -29,6 +29,13 @@ class AdRoleWindows
     private $created;
 
     /**
+     * @var bigint $createdby
+     *
+     * @Column(name="CreatedBy", type="bigint", nullable=false)
+     */
+    private $createdby;
+
+    /**
      * @var datetime $updated
      *
      * @Column(name="Updated", type="datetime", nullable=false)
@@ -36,17 +43,14 @@ class AdRoleWindows
     private $updated;
 
     /**
-     * @var AdUser
+     * @var bigint $updatedby
      *
-     * @ManyToOne(targetEntity="AdUser")
-     * @JoinColumns({
-     *   @JoinColumn(name="UpdatedBy", referencedColumnName="AD_User_ID")
-     * })
+     * @Column(name="UpdatedBy", type="bigint", nullable=true)
      */
     private $updatedby;
 
     /**
-     * @var AdRole
+     * @var Entities\ADRole
      *
      * @ManyToOne(targetEntity="AdRole")
      * @JoinColumns({
@@ -56,7 +60,7 @@ class AdRoleWindows
     private $adRole;
 
     /**
-     * @var AdWindow
+     * @var Entities\ADWindow
      *
      * @ManyToOne(targetEntity="AdWindow")
      * @JoinColumns({
@@ -64,16 +68,6 @@ class AdRoleWindows
      * })
      */
     private $adWindow;
-
-    /**
-     * @var AdUser
-     *
-     * @ManyToOne(targetEntity="AdUser")
-     * @JoinColumns({
-     *   @JoinColumn(name="CreatedBy", referencedColumnName="AD_User_ID")
-     * })
-     */
-    private $createdby;
 
 
 
@@ -108,6 +102,26 @@ class AdRoleWindows
     }
 
     /**
+     * Set createdby
+     *
+     * @param bigint $createdby
+     */
+    public function setCreatedby($createdby)
+    {
+        $this->createdby = $createdby;
+    }
+
+    /**
+     * Get createdby
+     *
+     * @return bigint 
+     */
+    public function getCreatedby()
+    {
+        return $this->createdby;
+    }
+
+    /**
      * Set updated
      *
      * @param datetime $updated
@@ -130,9 +144,9 @@ class AdRoleWindows
     /**
      * Set updatedby
      *
-     * @param AdUser $updatedby
+     * @param bigint $updatedby
      */
-    public function setUpdatedby(\AdUser $updatedby)
+    public function setUpdatedby($updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -140,7 +154,7 @@ class AdRoleWindows
     /**
      * Get updatedby
      *
-     * @return AdUser 
+     * @return bigint 
      */
     public function getUpdatedby()
     {
@@ -152,7 +166,7 @@ class AdRoleWindows
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(\AdRole $adRole)
+    public function setAdRole(Entities\AdRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -172,7 +186,7 @@ class AdRoleWindows
      *
      * @param AdWindow $adWindow
      */
-    public function setAdWindow(\AdWindow $adWindow)
+    public function setAdWindow(Entities\AdWindow $adWindow)
     {
         $this->adWindow = $adWindow;
     }
@@ -185,25 +199,5 @@ class AdRoleWindows
     public function getAdWindow()
     {
         return $this->adWindow;
-    }
-
-    /**
-     * Set createdby
-     *
-     * @param AdUser $createdby
-     */
-    public function setCreatedby(\AdUser $createdby)
-    {
-        $this->createdby = $createdby;
-    }
-
-    /**
-     * Get createdby
-     *
-     * @return AdUser 
-     */
-    public function getCreatedby()
-    {
-        return $this->createdby;
     }
 }

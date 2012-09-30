@@ -1,7 +1,7 @@
 <?php
 
 
-
+namespace Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,7 +64,7 @@ class AdRole
     private $updated;
 
     /**
-     * @var AdUser
+     * @var Entities\AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -74,7 +74,7 @@ class AdRole
     private $updatedby;
 
     /**
-     * @var AdUser
+     * @var Entities\AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -82,7 +82,6 @@ class AdRole
      * })
      */
     private $createdby;
-
 
 
     /**
@@ -220,7 +219,7 @@ class AdRole
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(\AdUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -240,7 +239,7 @@ class AdRole
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(\AdUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

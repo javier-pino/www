@@ -65,7 +65,7 @@ class TD_Controller extends MX_Controller {
 class TD_Login_Controller extends TD_Controller {
                
     /**
-     * @var Entities\AdUser Usuario logueado en el sistema
+     * @var Entities\ADUser Usuario logueado en el sistema
      * Esta variable almacena el usuario identificado
      */
     protected $login_user = NULL;
@@ -231,14 +231,11 @@ class TD_Role_Controller extends TD_Login_Controller {
         if ($this->is_login()) {
             
             //Obtener el rol y determinar si el rol está autorizado
-            $this->load->model('Cadena/role');                                                
+            $this->load->model('Cadena/role');                                    
             $this->login_role = $this->role->getUserRole($this->login_user);
-            
-            
-            var_dump($this->login_role);
-            die;
+                       
             if ($this->login_role) {                
-                $this->authorized = $this->role->isAuthorizedRole($this->login_role);    
+                $this->authorized = $this->role->isAuthorizedRole($this->login_role);                
                 
                 //Buscar las pantallas que tiene permitidas
                 $this->data['role_name'] = $this->login_role->getName();

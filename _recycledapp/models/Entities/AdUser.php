@@ -99,7 +99,7 @@ class AdUser
     private $birthday;
 
     /**
-     * @var AdUser
+     * @var Entities\AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -109,7 +109,7 @@ class AdUser
     private $updatedby;
 
     /**
-     * @var AdUser
+     * @var Entities\AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -119,7 +119,7 @@ class AdUser
     private $supervisor;
 
     /**
-     * @var AdUser
+     * @var Entities\AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -365,7 +365,7 @@ class AdUser
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(\AdUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -385,7 +385,7 @@ class AdUser
      *
      * @param AdUser $supervisor
      */
-    public function setSupervisor(\AdUser $supervisor)
+    public function setSupervisor(Entities\AdUser $supervisor)
     {
         $this->supervisor = $supervisor;
     }
@@ -403,9 +403,9 @@ class AdUser
     /**
      * Set createdby
      *
-     * @param AdUser $createdby
+     * @param Entities\AdUser $createdby
      */
-    public function setCreatedby(\AdUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }
