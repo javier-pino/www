@@ -167,7 +167,7 @@ class User Extends TD_Model {
     public function verifyLogin($login, $password) {        
         
         //Buscar el usuario y contraseña
-        $ad_users = $this->em->getRepository('Entities\ADUser')->findBy(array(
+        $ad_users = $this->em->getRepository('Entities\AdUser')->findBy(array(
                 'login' => $login,
                 'password' => md5($password)                                      
             )
@@ -182,7 +182,7 @@ class User Extends TD_Model {
     public function Login($login, $password, $remember) {
         
         //Buscar el usuario y contraseña
-        $ad_users = $this->em->getRepository('Entities\ADUser')->findBy(array(
+        $ad_users = $this->em->getRepository('Entities\AdUser')->findBy(array(
                 'login' => $login,
                 'password' => md5($password)                                      
             )

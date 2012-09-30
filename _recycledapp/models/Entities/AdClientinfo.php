@@ -183,7 +183,7 @@ class AdClientinfo
      *
      * @param AdClient $adClient
      */
-    public function setAdClient(Entities\ADClient $adClient)
+    public function setAdClient(Entities\AdClient $adClient)
     {
         $this->adClient = $adClient;
     }

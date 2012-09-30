@@ -220,7 +220,7 @@ class AdRole
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\ADUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -240,7 +240,7 @@ class AdRole
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\ADUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

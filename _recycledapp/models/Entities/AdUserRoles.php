@@ -132,7 +132,7 @@ class AdUserRoles
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\ADUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -152,7 +152,7 @@ class AdUserRoles
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\ADRole $adRole)
+    public function setAdRole(Entities\AdRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -172,7 +172,7 @@ class AdUserRoles
      *
      * @param AdUser $adUser
      */
-    public function setAdUser(Entities\ADUser $adUser)
+    public function setAdUser(Entities\AdUser $adUser)
     {
         $this->adUser = $adUser;
     }
@@ -192,7 +192,7 @@ class AdUserRoles
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\ADUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

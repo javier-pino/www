@@ -132,7 +132,7 @@ class AdRoleWindows
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\ADUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -152,7 +152,7 @@ class AdRoleWindows
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\ADRole $adRole)
+    public function setAdRole(Entities\AdRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -172,7 +172,7 @@ class AdRoleWindows
      *
      * @param AdWindow $adWindow
      */
-    public function setAdWindow(Entities\ADWindow $adWindow)
+    public function setAdWindow(Entities\AdWindow $adWindow)
     {
         $this->adWindow = $adWindow;
     }
@@ -192,7 +192,7 @@ class AdRoleWindows
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\ADUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

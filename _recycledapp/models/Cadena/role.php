@@ -17,18 +17,13 @@ class Role Extends TD_Model {
         
         $result = NULL;        
         $query = $this->qb->select('u, ur')
-                ->from('Entities\ADUserRoles', 'ur')                
+                ->from('Entities\AdUserRoles', 'ur')                
                 ->join('ur.adUser', 'u')
                 ->where('u.adUserId = '. $adUser->getAdUserId())
                 ->getQuery();                        
         try {                        
              //Si tiene un rol asociado buscarlo
-            $result = $query->getSingleResult();
-            var_dump($result);
-                    
-                    
-                    die;
-                    //->getAdRole();            
+            $result = $query->getSingleResult()->getAdRole();            
         } catch (Exception $e) {}
         
         return $result;
@@ -40,7 +35,7 @@ class Role Extends TD_Model {
         //Verificar si el rol tiene acceso al url                
         $document_dir = $this->get_ad_window();                  
         $query = $this->qb->select('rw')
-            ->from('Entities\ADRoleWindows', 'rw')                
+            ->from('Entities\AdRoleWindows', 'rw')                
             ->join('rw.adRole', 'r')            
             ->join('rw.adWindow', 'w')                           
             ->where('r.adRoleId = '. $role->getAdRoleId())

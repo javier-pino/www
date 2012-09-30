@@ -365,7 +365,7 @@ class AdUser
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\ADUser $updatedby)
+    public function setUpdatedby(Entities\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -385,7 +385,7 @@ class AdUser
      *
      * @param AdUser $supervisor
      */
-    public function setSupervisor(Entities\ADUser $supervisor)
+    public function setSupervisor(Entities\AdUser $supervisor)
     {
         $this->supervisor = $supervisor;
     }
@@ -405,7 +405,7 @@ class AdUser
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\ADUser $createdby)
+    public function setCreatedby(Entities\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

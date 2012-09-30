@@ -65,7 +65,7 @@ class TD_Controller extends MX_Controller {
 class TD_Login_Controller extends TD_Controller {
                
     /**
-     * @var Entities\ADUser Usuario logueado en el sistema
+     * @var Entities\AdUser Usuario logueado en el sistema
      * Esta variable almacena el usuario identificado
      */
     protected $login_user = NULL;
