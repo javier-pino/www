@@ -36,7 +36,7 @@ class AdRoleWindows
     private $updated;
 
     /**
-     * @var Entities\AdUser
+     * @var AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -46,7 +46,7 @@ class AdRoleWindows
     private $updatedby;
 
     /**
-     * @var Entities\AdRole
+     * @var AdRole
      *
      * @ManyToOne(targetEntity="AdRole")
      * @JoinColumns({
@@ -56,7 +56,7 @@ class AdRoleWindows
     private $adRole;
 
     /**
-     * @var Entities\AdWindow
+     * @var AdWindow
      *
      * @ManyToOne(targetEntity="AdWindow")
      * @JoinColumns({
@@ -66,7 +66,7 @@ class AdRoleWindows
     private $adWindow;
 
     /**
-     * @var Entities\AdUser
+     * @var AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -132,7 +132,7 @@ class AdRoleWindows
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\AdUser $updatedby)
+    public function setUpdatedby(\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -152,7 +152,7 @@ class AdRoleWindows
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\AdRole $adRole)
+    public function setAdRole(\AdRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -172,7 +172,7 @@ class AdRoleWindows
      *
      * @param AdWindow $adWindow
      */
-    public function setAdWindow(Entities\AdWindow $adWindow)
+    public function setAdWindow(\AdWindow $adWindow)
     {
         $this->adWindow = $adWindow;
     }
@@ -192,7 +192,7 @@ class AdRoleWindows
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\AdUser $createdby)
+    public function setCreatedby(\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

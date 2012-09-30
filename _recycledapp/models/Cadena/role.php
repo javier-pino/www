@@ -20,10 +20,12 @@ class Role Extends TD_Model {
                 ->from('Entities\AdUserRoles', 'ur')                
                 ->join('ur.adUser', 'u')
                 ->where('u.adUserId = '. $adUser->getAdUserId())
-                ->getQuery();                        
+                ->getQuery();                                                
         try {                        
              //Si tiene un rol asociado buscarlo
-            $result = $query->getSingleResult()->getAdRole();            
+            $result = $query->getSingleResult();             
+            var_dump($result);
+            die;
         } catch (Exception $e) {}
         
         return $result;
@@ -33,9 +35,9 @@ class Role Extends TD_Model {
     public function isAuthorizedRole (Entities\AdRole $role) {
         
         //Verificar si el rol tiene acceso al url                
-        $document_dir = $this->get_ad_window();                  
+        $document_dir = $this->get_ad_window();                          
         $query = $this->qb->select('rw')
-            ->from('Entities\AdRoleWindows', 'rw')                
+            ->from('AdRoleWindows', 'rw')                
             ->join('rw.adRole', 'r')            
             ->join('rw.adWindow', 'w')                           
             ->where('r.adRoleId = '. $role->getAdRoleId())
@@ -75,13 +77,13 @@ class Role Extends TD_Model {
         $result = array();        
         $this->qb = $this->em->createQueryBuilder();
         $query = $this->qb->select('rw, ro')
-                ->from('Entities\ADRoleWindows', 'rw')                
+                ->from('AdRoleWindows', 'rw')                
                 ->join('rw.adRole', 'ro')
                 ->where('ro.adRoleId ='. $ad_role->getAdRoleId())
-                ->getQuery();                        
+                ->getQuery();             
         try {                        
              //Si tiene un rol asociado buscarlo
-            $result_temp = $query->getResult(); 
+            $result_temp = $query->getResult();             
             foreach ($result_temp as $res) {
                 $w = $res->getAdWindow();
                 $result[$w->getModule()][] = $w;
@@ -97,7 +99,7 @@ class Role Extends TD_Model {
         $result = array();        
         $this->qb = $this->em->createQueryBuilder();
         $query = $this->qb->select('w')
-                ->from('Entities\ADWindow', 'w')                                
+                ->from('AdWindow', 'w')                                
                 ->orderBy('w.module, w.name')
                 ->getQuery();                        
         try {                        

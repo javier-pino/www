@@ -19,7 +19,7 @@ class Usuarios extends TD_Role_Controller {
 
         $this->qb = $this->em->createQueryBuilder();
         $query = $this->qb->select('ur, u, r')
-                ->from('Entities\AdUserRoles', 'ur')
+                ->from('AdUserRoles', 'ur')
                 ->join('ur.adUser', 'u')
                 ->join('ur.adRole', 'r')
                 ->orderBy('r.name, u.name')

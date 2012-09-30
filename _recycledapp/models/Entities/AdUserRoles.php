@@ -36,7 +36,7 @@ class AdUserRoles
     private $updated;
 
     /**
-     * @var Entities\AdUser
+     * @var AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -46,7 +46,7 @@ class AdUserRoles
     private $updatedby;
 
     /**
-     * @var Entities\AdRole
+     * @var AdRole
      *
      * @ManyToOne(targetEntity="AdRole")
      * @JoinColumns({
@@ -56,7 +56,7 @@ class AdUserRoles
     private $adRole;
 
     /**
-     * @var Entities\AdUser
+     * @var AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -66,7 +66,7 @@ class AdUserRoles
     private $adUser;
 
     /**
-     * @var Entities\AdUser
+     * @var AdUser
      *
      * @ManyToOne(targetEntity="AdUser")
      * @JoinColumns({
@@ -132,7 +132,7 @@ class AdUserRoles
      *
      * @param AdUser $updatedby
      */
-    public function setUpdatedby(Entities\AdUser $updatedby)
+    public function setUpdatedby(\AdUser $updatedby)
     {
         $this->updatedby = $updatedby;
     }
@@ -152,7 +152,7 @@ class AdUserRoles
      *
      * @param AdRole $adRole
      */
-    public function setAdRole(Entities\AdRole $adRole)
+    public function setAdRole(\AdRole $adRole)
     {
         $this->adRole = $adRole;
     }
@@ -172,7 +172,7 @@ class AdUserRoles
      *
      * @param AdUser $adUser
      */
-    public function setAdUser(Entities\AdUser $adUser)
+    public function setAdUser(\AdUser $adUser)
     {
         $this->adUser = $adUser;
     }
@@ -192,7 +192,7 @@ class AdUserRoles
      *
      * @param AdUser $createdby
      */
-    public function setCreatedby(Entities\AdUser $createdby)
+    public function setCreatedby(\AdUser $createdby)
     {
         $this->createdby = $createdby;
     }

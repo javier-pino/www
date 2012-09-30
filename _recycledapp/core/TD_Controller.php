@@ -231,11 +231,14 @@ class TD_Role_Controller extends TD_Login_Controller {
         if ($this->is_login()) {
             
             //Obtener el rol y determinar si el rol está autorizado
-            $this->load->model('Cadena/role');                                    
+            $this->load->model('Cadena/role');                                                
             $this->login_role = $this->role->getUserRole($this->login_user);
-                       
+            
+            
+            var_dump($this->login_role);
+            die;
             if ($this->login_role) {                
-                $this->authorized = $this->role->isAuthorizedRole($this->login_role);                
+                $this->authorized = $this->role->isAuthorizedRole($this->login_role);    
                 
                 //Buscar las pantallas que tiene permitidas
                 $this->data['role_name'] = $this->login_role->getName();
