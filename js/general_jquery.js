@@ -68,7 +68,7 @@ function new_datatable($selector, paginate) {
     $selector.dataTable({         
         "bJQueryUI": true,        
         "bPaginate": paginate,        
-        "sScrollX": "100%",
+        "sScrollX": "auto",
         "bScrollCollapse": false,
         "sPaginationType": "full_numbers",                 
         "oLanguage": { 

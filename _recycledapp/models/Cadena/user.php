@@ -170,7 +170,84 @@ class User Extends TD_Model {
             return FALSE;
         }                        
                 
-        $this->session_messages->set_message('Usuario creado con exito'); 
+        $this->session_messages->set_message('Usuario creado con éxito'); 
+        return TRUE;
+    }    
+    
+    public function update_user_with_role($login_user_id) {
+        
+        $time = date('Y-m-d H:i:s', time());        
+        $birthday = NULL;
+        
+        //Si se especificó la fecha de nacimiento
+        if ($this->input->post('birthday')) {
+            $birthday = $this->input->post('birthday');
+            $birthday = str_replace('/', '-', $birthday);
+            $birthday = strtotime($birthday);
+            $birthday = date('Y-m-d H:i:s', $birthday);
+        }
+        
+        $ad_user_id = $this->input->post('id');
+        
+        //Se actualiza al usuario con los datos especificados
+        $ad_user = array(        
+            
+            'Login' => ($this->input->post('login') ? $this->input->post('login') : ''),
+            'Name' => ($this->input->post('name') ? $this->input->post('name') : ''),                        
+            'Description' => ($this->input->post('description') ? $this->input->post('description') : ''),
+            'Comments' => ($this->input->post('comments') ? $this->input->post('comments') : ''),            
+            'Email' => ($this->input->post('email') ? $this->input->post('email') : ''),            
+            'Phone' => ($this->input->post('phone') ? $this->input->post('phone') : ''),                        
+            'Phone2' => ($this->input->post('phone2') ? $this->input->post('phone2') : ''),                       
+            'Birthday' => $birthday,                                  
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
+        
+        //Se asume que el controlador validó
+        if ($this->input->post('password')) {
+            $ad_user['Password'] = md5($this->input->post('password'));                 
+        }   
+        
+        //Se actualiza en la base de datos
+        $inserted = FALSE;        
+        try {
+            $this->db->where('ad_user_id', $ad_user_id);
+            $inserted = $this->db->update('ad_user', $ad_user); 
+        } catch ( Exception $e ) {}
+                
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al actualizar el registro'); 
+            return FALSE;
+        }
+            
+        var_dump($_POST);
+        
+        //Se garantiza la presencia del rol        
+        $ad_role_id = $this->input->post('selected_value_hidden');
+                
+        //Actualizar el rol
+        $ad_user_roles = array(        
+            'AD_Role_ID' => $ad_role_id,            
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
+        
+        $inserted = FALSE;        
+        try {
+            $this->db->where(array(                
+                'AD_User_ID' => $ad_user_id,                                
+            ));
+            $inserted = $this->db->update('ad_user_roles', $ad_user_roles);             
+            echo $this->db->last_query();
+        } catch ( Exception $e ) {}
+                        
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al guardar el rol del usuario'); 
+            return FALSE;
+        }
+                
+        $this->session_messages->set_message('Usuario actualizado con éxito'); 
         return TRUE;
     }    
     
@@ -190,6 +267,49 @@ class User Extends TD_Model {
             $result = $query->result();                    
         } catch ( Exception $e) {}        
         return $result;
+    }
+       
+    /** Dado un id de usuario, busca al usuario en la base de datos */
+    public function find_user_and_role ($ad_user_id) {
+        
+        $this->db
+                ->select('u.AD_User_ID ID, u.Login, u.Name Name_user, u.Description Desc_user, '.
+                    'u.Comments, u.Email, u.Phone, u.Phone2,'.
+                    "u.Birthday ,ur.AD_Role_ID")
+                ->from('ad_user u')
+                ->join('ad_user_roles ur', 'u.ad_user_id = ur.ad_user_id')
+                ->where(array('u.ad_user_id' => $ad_user_id) )
+                ;                        
+        try {
+            $query = $this->db->get();                                
+            $result = $query->result(); 
+            if (empty($result))
+                return NULL;
+            else {
+                return $result[0];
+            }            
+        } catch ( Exception $e) {}        
+        return NULL;                
+    }
+    
+        /** Dado un id de usuario, busca al usuario en la base de datos */
+    public function is_repeated_login ($login, $ad_user_id) {
+                       
+        $this->db
+                ->select('u.AD_User_ID ID')
+                ->from('ad_user u')                
+                ->where(array(
+                        'u.AD_User_ID !=' => $ad_user_id,
+                        'u.Login' => $login,                        
+                       ));                       
+        try {                        
+            if ($this->db->count_all_results() > 0)
+                return TRUE;
+            else {
+                return FALSE;
+            }            
+        } catch ( Exception $e) {}        
+        return FALSE;                
     }
     
 }

@@ -200,7 +200,7 @@ class Role Extends TD_Model {
         } catch (Exception $e) {}                  
         return $result;
     }
-    
+       
 }
 /* Fin de archivo user.php */
 /* Ubicación: */

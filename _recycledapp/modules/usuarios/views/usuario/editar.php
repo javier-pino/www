@@ -11,7 +11,8 @@
             <div id="form_data">                
                 <div class="fieldcontain">
                     <label for="login" class="ui-state-active">Usuario:</label>
-                    <?php echo form_input($form_input['login']); ?>
+                    <?php echo form_input($form_input['login']);?>
+                    <?php echo form_input($form_input['id']); ?>
                 </div>
 
                 <div class="fieldcontain">
@@ -22,6 +23,11 @@
                 <div class="fieldcontain">
                     <label for="password" class="ui-state-default">Contraseña:</label>
                     <?php echo form_input($form_input['password']); ?>
+                </div>
+                
+                <div class="fieldcontain">
+                    <label for="password2" class="ui-state-default">Confirme Contraseña:</label>
+                    <?php echo form_input($form_input['password2']); ?>
                 </div>
                 
                 <div class="fieldcontain">
