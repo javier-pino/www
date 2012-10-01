@@ -23,7 +23,7 @@ $(function() {
     $( "input:submit, button").button();
     
     $( "input:submit.delete, button.delete").click(function () {
-        var agree = confirm("¿Está seguro que desea eliminar el registro?");
+        var agree = confirm("¿Está seguro que desea eliminar el(los) registro(s)?");
         if (agree)
             return true ;
         else

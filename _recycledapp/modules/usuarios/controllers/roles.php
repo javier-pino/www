@@ -338,17 +338,45 @@ class Roles extends TD_Role_Controller {
                 redirect(base_url('usuarios/roles/'));
             }                       
         }
-        /*
-        //Setear variables
-        $this->data['title'] = $this->client_name . ' - Listar Roles';        
-        $this->data['header'] = 'Listar Roles';
+
+        //Cargar las variables de la vista                
+        $this->data['title'] = $this->client_name . ' - Eliminar Roles';
+        $this->data['header'] = 'Eliminar Roles';
+
+        //Cargar el formulario y sus atributos
+        $this->load->helper('form');
+        $this->data['form_info'] = array(
+            'id' => 'eliminar_roles');
+
+        $this->data['form_action'] = 'usuarios/roles/eliminar';
+
+        $this->data['form_input'] = array(
+            'delete' => array(
+                'type' => "submit",
+                'class' => 'delete',                
+                'content' => "Eliminar Roles",
+                'name' => "delete",                
+                'value' => TRUE
+             ), 
+            'reset' => array(
+                'type' => "reset",
+                'content' => "Limpiar Formulario",
+                'name' => "Limpiar Formulario"                
+            )
+        );        
         
         $this->load->model('Cadena/role');
-        $all_users = $this->role->get_all_roles();
+        $roles = $this->role->get_all_roles();
+        
+        //Eliminar aquellos roles que no estén activos
+        foreach ($roles as $key => $role) {
+            if (!$role->Is_Active) 
+                unset ($roles[$key]);                
+        }
 
         //Procesar el resultado
         $this->data['listar'] = array();                   
-        foreach ($all_users as $one) {                            
+        foreach ($roles as $one) {                            
             
              //Para cada rol, obtener los módulos a los que tiene acceso
              $windows = $this->role->get_allowed_ad_windows($one);
@@ -361,11 +389,41 @@ class Roles extends TD_Role_Controller {
              foreach ($users as $user) {
                  $one->Users[] = $user;                 
              }
+             
+             $one->Input = array(                                
+                                'name' => "role[{$one->AD_Role_ID}]",
+                                'id' => "role[{$one->AD_Role_ID}]",                                
+                                'value'=> $one->AD_Role_ID,
+                                'checked' => ( isset( $_POST["role"][$one->AD_Role_ID] ) ? TRUE : FALSE)
+                            );
              $this->data['listar'][] = $one ;                                            
         }                
-        $this->load_as_content('usuario/editar');        
-         * 
-         */
+                
+        //Validar el formulario, en caso de que no pase la prueba o no exista mostrarlo                
+        $post_roles = isset($_POST['role']) ? $_POST['role'] : NULL ;            
+        if (!$post_roles) {                        
+            $data = array();
+            $data['title'] = $this->client_name . ' - Crear Rol';
+            $this->load_as_content('roles/eliminar');            
+        } else {            
+                    
+            //Proceder a eliminar todos aquellos roles seleccionados                        
+            $this->load->model('Cadena/role');
+            
+            $success = TRUE;
+            foreach ($post_roles as $ad_role_id) {
+                $success &= $this->role->delete_role($this->login_user_id, $ad_role_id);                                                 
+                if (!$success) 
+                    break;
+            }
+            
+            if ($success) {
+                redirect(base_url('usuarios/roles/eliminar'));
+            } else {
+                redirect(base_url('usuarios/roles/eliminar'));
+            }                         
+        }        
+        
     }    
     
 }

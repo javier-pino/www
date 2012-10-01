@@ -26,7 +26,7 @@ class Usuarios extends TD_Role_Controller {
         foreach ($all_users as $one) {                
              $this->data['listar'][$one->Name_role][] = $one ;                                
         }                
-        $this->load_as_content('usuarios/listar');
+        $this->load_as_content('usuario/listar');
     }
     
     /** Función encargada de crear roles de usuario */
@@ -214,6 +214,7 @@ class Usuarios extends TD_Role_Controller {
         $this->load->model('Cadena/role');
         
         $roles = $this->role->get_all_roles();
+        
         //Eliminar aquellos roles que no estén activos
         foreach ($roles as $key => $role) {
             if (!$role->Is_Active) 
@@ -470,11 +471,11 @@ class Usuarios extends TD_Role_Controller {
         }        
         return TRUE;        
     }
-    
+        
     /** Función encargada de eliminar usuarios */
     public function eliminar($ad_user_id = NULL) {
         
-        $this->need_role_authorization();
+    $this->need_role_authorization();
 
         //Si recibe esta variable por get, significa que solo se desea eliminar dicho registro
         if ($ad_user_id) {
@@ -488,5 +489,84 @@ class Usuarios extends TD_Role_Controller {
                 redirect(base_url('usuarios/usuarios/editar/' . $ad_user_id));
             }                       
         }
+        //Cargar las variables de la vista                
+        $this->data['title'] = $this->client_name . ' - Eliminar Usuarios';
+        $this->data['header'] = 'Eliminar Usuarios';
+
+        //Cargar el formulario y sus atributos
+        $this->load->helper('form');
+        $this->data['form_info'] = array(
+            'id' => 'eliminar_usuarios');
+
+        $this->data['form_action'] = 'usuarios/usuarios/eliminar';
+
+        $this->data['form_input'] = array(
+            'delete' => array(
+                'type' => "submit",
+                'class' => 'delete',                
+                'content' => "Eliminar Usuarios",
+                'name' => "delete",                
+                'value' => TRUE
+             ), 
+            'reset' => array(
+                'type' => "reset",
+                'content' => "Limpiar Formulario",
+                'name' => "Limpiar Formulario"                
+            )
+        );        
+        
+        $this->load->model('Cadena/user');
+        $roles = $this->user->list_all_users();
+        
+        //Eliminar aquellos roles que no estén activos
+        foreach ($roles as $key => $role) {
+            if (!$role->Is_Active) 
+                unset ($roles[$key]);                
+        }
+        
+        //Procesar el resultado
+        $this->data['listar'] = array();                   
+        foreach ($roles as $one) {                            
+            
+             //Para cada usuario obtener su rol                          
+             $one->Input = array(                                
+                                'name' => "user[{$one->ID}]",
+                                'id' => "user[{$one->ID}]",                                
+                                'value'=> $one->ID,
+                                'checked' => ( isset( $_POST["user"][$one->ID] ) ? TRUE : FALSE)
+                            );
+             $this->data['listar'][] = $one ;                                            
+        }                
+        
+        //Validar el formulario, en caso de que no pase la prueba o no exista mostrarlo                
+        $post_roles = isset($_POST['user']) ? $_POST['user'] : NULL ;            
+        
+        //var_dump($post_roles);
+        //die;
+        
+        if (!$post_roles) {                        
+            $data = array();
+            $data['title'] = $this->client_name . ' - Crear Rol';
+            $this->load_as_content('usuario/eliminar');            
+        } else {            
+                    
+            //Proceder a eliminar todos aquellos roles seleccionados                        
+            $this->load->model('Cadena/role');
+            
+            $success = TRUE;
+            foreach ($post_roles as $ad_role_id) {
+                $success &= $this->role->delete_role($this->login_user_id, $ad_role_id);                                                 
+                if (!$success) 
+                    break;
+            }
+            
+            if ($success) {
+                redirect(base_url('usuarios/roles/eliminar'));
+            } else {
+                redirect(base_url('usuarios/roles/eliminar'));
+            }                         
+        }        
+        
     }    
+    
 }

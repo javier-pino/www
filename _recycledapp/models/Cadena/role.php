@@ -361,7 +361,7 @@ class Role Extends TD_Model {
             return FALSE;
         }
         
-        $this->session_messages->set_message('Usuario eliminado exitosamente'); 
+        $this->session_messages->set_message('Rol de usuario eliminado exitosamente'); 
         return TRUE;
     }
     
