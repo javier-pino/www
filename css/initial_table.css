@@ -169,6 +169,7 @@ table.display tr.heading2 td {
 
 table.display td {
 	padding: 3px 10px;
+        font-size: 13px;
 }
 
 table.display td.center {

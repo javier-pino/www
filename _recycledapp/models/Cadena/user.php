@@ -269,11 +269,10 @@ class User Extends TD_Model {
     /** 
      * Esta función elimina los usuarios de las base de datos
      */
-    public function delete_user($login_user_id) {
+    public function delete_user($login_user_id, $ad_user_id) {
         
         $time = date('Y-m-d H:i:s', time());        
-        $ad_user_id = $this->input->post('id');
-        
+         
         //Se actualiza al usuario con los datos especificados
         $ad_user = array(                    
             'Is_Active' => FALSE,            
@@ -285,7 +284,7 @@ class User Extends TD_Model {
         $inserted = FALSE;        
         try {
             $this->db->where('ad_user_id', $ad_user_id);
-            $inserted = $this->db->update('ad_user', $ad_user);             
+            $inserted = $this->db->update('ad_user', $ad_user);                         
         } catch ( Exception $e ) {}
                 
         if (!$inserted) {
@@ -301,8 +300,8 @@ class User Extends TD_Model {
     public function list_all_users () {
         
         $this->db->select('u.AD_User_ID ID, u.Login, u.Name Name_user, u.Description Desc_user, ' .
-            'u.Comments, u.Email, u.Phone, u.Phone2, u.Birthday, ' .
-            'a.Finder, a.Name Name_role, a.Description Desc_role'
+            'u.Comments, u.Email, u.Phone, u.Phone2, u.Birthday, u.Is_Active, ' .
+            'a.AD_Role_ID, a.Finder, a.Name Name_role, a.Description Desc_role'
         );
         $this->db->from('ad_user u');
         $this->db->join('ad_user_roles ur', 'u.ad_user_id = ur.ad_user_id');

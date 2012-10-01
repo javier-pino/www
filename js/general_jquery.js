@@ -29,7 +29,7 @@ $(function() {
         else
             return false ;        
     });
-    
+        
     var last_selected_value = $('#selected_value_hidden').val();
     var last_selected_id = $('#selected_id_hidden').val();
     $( ".selectable" ).selectable({

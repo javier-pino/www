@@ -50,6 +50,12 @@ class Usuarios extends TD_Role_Controller {
         $this->load->model('Cadena/role');
         $roles = $this->role->get_all_roles();
         
+        //Eliminar aquellos roles que no estén activos
+        foreach ($roles as $key => $role) {
+            if (!$role->Is_Active) 
+                unset ($roles[$key]);                
+        }        
+        
         $this->data['form_input'] = array(
             'login' => array(
                 'type' => "text",
@@ -187,9 +193,9 @@ class Usuarios extends TD_Role_Controller {
             $success = $this->user->create_user_with_role($this->login_user_id);            
             
             if ($success) {
-                redirect(base_url('escritorio'));
+                redirect(base_url('usuarios/usuarios'));
             } else {
-                redirect(base_url('escritorio'));
+                redirect(base_url('usuarios/usuarios'));
             }            
         }        
     }
@@ -206,22 +212,26 @@ class Usuarios extends TD_Role_Controller {
         
         //Precargar la información de los roles preexistentes
         $this->load->model('Cadena/role');
-        $roles = $this->role->get_all_roles();
         
+        $roles = $this->role->get_all_roles();
+        //Eliminar aquellos roles que no estén activos
+        foreach ($roles as $key => $role) {
+            if (!$role->Is_Active) 
+                unset ($roles[$key]);                
+        }
+               
         //Precargar la información
         $this->load->model('Cadena/user');
         $user = $this->user->find_user_and_role($ad_user_id);
+        
+        if (!$user) {            
+            $this->session_messages->set_error('Operación incorrecta. No se encontró el usuario a editar');
+            redirect(base_url('usuarios/usuarios/'));
+        }
                         
         //Si la accion a realizar es eliminar al usuario, proceder sin validar        
-        if ($this->input->post('delete'))  {            
-            
-            $success = $this->user->delete_user($this->login_user_id);            
-            if ($success) {
-                redirect(base_url('usuarios/usuarios/'));
-            } else {
-                redirect(base_url('usuarios/usuarios/editar/' . $ad_user_id));
-            }            
-            
+        if ($this->input->post('delete'))  {                        
+            redirect(base_url('usuarios/usuarios/eliminar/' . $ad_user_id));            
         }
         
         //Cargar las variables de la vista                
@@ -461,4 +471,22 @@ class Usuarios extends TD_Role_Controller {
         return TRUE;        
     }
     
+    /** Función encargada de eliminar usuarios */
+    public function eliminar($ad_user_id = NULL) {
+        
+        $this->need_role_authorization();
+
+        //Si recibe esta variable por get, significa que solo se desea eliminar dicho registro
+        if ($ad_user_id) {
+            
+            //Eliminarlo
+            $this->load->model('Cadena/user');
+            $success = $this->user->delete_user($this->login_user_id, $ad_user_id);                         
+            if ($success) {
+                redirect(base_url('usuarios/usuarios/'));
+            } else {
+                redirect(base_url('usuarios/usuarios/editar/' . $ad_user_id));
+            }                       
+        }
+    }    
 }

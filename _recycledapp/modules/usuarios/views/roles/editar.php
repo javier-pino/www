@@ -12,6 +12,7 @@
                 <div class="fieldcontain">
                     <label for="finder" class="ui-state-active">Clave de búsqueda:</label>
                     <?php echo form_input($form_input['finder']); ?>
+                    <?php echo form_input($form_input['id']); ?>
                 </div>
 
                 <div class="fieldcontain">
@@ -64,6 +65,9 @@
             <div id="form_buttons">                    
                 <?php echo form_button($form_input['submit']); ?>                
                 <?php echo form_button($form_input['reset']); ?>
+            </div>
+            <div id="form_buttons">                    
+                <?php echo form_button($form_input['delete']); ?>                                
             </div>
 
         </div>
