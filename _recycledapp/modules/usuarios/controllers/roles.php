@@ -61,8 +61,8 @@ class Roles extends TD_Role_Controller {
             ),                 
             'submit' => array(
                 'type' => "submit",
-                'content' => "Registrarme",
-                'name' => "Registrarme"
+                'content' => "Registrar",
+                'name' => "Registrar"
             ),
             'reset' => array(
                 'type' => "reset",
@@ -127,21 +127,5 @@ class Roles extends TD_Role_Controller {
         }        
     }
     
-    /** 
-     * Esta función verifica que el rol creado, tenga acceso a al menos una ventana
-     */
-    public function municipio_check($str)
-    {
-        $city_id = $this->input->post('permisssion');
-        $city_input = $this->input->post('city_input');
-        $city_select = $this->input->post('city_select');
-                
-        if ($city_id != '1' && $city_input == '') {
-            $this->form_validation->set_message('municipio_check', 'El campo "Municipio" es obligatorio');
-            return FALSE;
-        }        
-        return TRUE;        
-    }
-
 }
 

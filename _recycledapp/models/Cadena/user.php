@@ -11,131 +11,7 @@
  */
 
 class User Extends TD_Model {
-
-    /********************** Seguridad y cifrado ****************************/
-    const CHAR_MIX = 0;
-    const CHAR_NUM = 1;
-    const CHAR_WORD = 2;
-        
-    /** Crea un usuario en la base de datos
-     * $validator y $hash son variables para el BUHO
-     * $validator para el link
-     * $hash      para el id en el BUHO         
-    public function create_from_buho($user_buho, $email, $password, $client)
-    {
-        $user_row = new models\User();
-        
-        $user_row->setEmail($email);
-        $user_row->setPassword($this->encode_password($password));
-        $user_row->setCreateTime(time());
-        $user_row->setLoginTime(time());
-        $user_row->setIp($this->input->ip_address());
-
-        if (isset ($user_buho['hash'])) {
-            $user_row->setHash($user_buho['hash']);
-        }
-        if (isset ($user_buho['validator'])) {
-            $user_row->setSecret($user_buho['validator']);
-        }
-        $user_row->setClient($client);
-        $user_row->setRealname($user_buho['realname']);
-        $user_row->setEnable('N');
-        $user_row->setBirthday($user_buho['birthday']);
-        $user_row->setCedula($user_buho['identifier']);
-        $user_row->setMobile($user_buho['mobile']);
-
-        //Almacenarlo en la base de datos
-        try {            
-            $this->em->persist($user_row);
-            $this->em->flush();
-        } catch (Exception $e) {
-            //var_dump($e);
-        }
-        return $user_row;
-    }
-
-    /**
-     * $validator y $hash son variables para el BUHO
-     * $validator para el link
-     * $hash      para el id en el BUHO
-    public function register_from_buho($user_buho, $client, $validator=NULL, $hash=NULL) {
-
-        $this->load->model('account/user');
-        $td_user = $this->user->create_from_buho($user_buho, $user_buho['email'], $user_buho['password'], $client);
-
-        $td_user->setCityId($user_buho['city_id']);
-        $td_user->setCity($user_buho['city']);
-        $td_user->setGender($user_buho['gender']);
-
-        //Completar los datos
-        if ($hash)
-            $td_user->setHash($hash);
-
-        if ($validator) {
-            $td_user->setSecret ($validator);
-        } else {
-            $td_user->setSecret(md5($this->generate_secret(12)));
-        }
-
-        //Almacenarlo en la base de datos
-        try {            
-            $this->em->persist($td_user);
-            $this->em->flush();
-        } catch (Exception $e) {
-            //var_dump($e);
-        }       
-        return $td_user;        
-    }
-
-     /*
-      * Se actualizan el usuario de acuerdo a la información del buho      
-    public function update_from_buho (models\User &$user, $user_buho, $password) {
-
-        if($user_buho['verified'] == 1) {
-            $user->setEnable('Y');
-        } elseif($user_buho['verified'] == 0) {
-            $user->setEnable('N');
-        }
-
-        if(!is_null($user_buho['validator']) && isset($user_buho['validator'])) {
-            $user->setRecode($user_buho['validator']);
-            $user->setSecret($user_buho['validator']);
-        }
-
-        if(!is_null($user_buho['identifier']) && isset($user_buho['identifier'])) {
-            $user->setCedula($user_buho['identifier']);
-        }
-
-        if(!is_null($user_buho['mobile_phone']) && isset($user_buho['mobile_phone'])) {
-            $user->setMobile($user_buho['mobile_phone']);
-        }
-
-        if(!is_null($user_buho['birthday']) && isset($user_buho['birthday'])) {
-            $user->setLocal(strtotime($user_buho['birthday']));
-        }
-
-        if(!is_null($user_buho['hash']) && isset($user_buho['hash'])) {
-            $user->setHash($user_buho['hash']);
-        }
-
-        if(!is_null($user_buho['origin_client']) && isset($user_buho['origin_client'])) {
-            $user->setClient($user_buho['origin_client']);
-        }
-
-        if(!is_null($password) && isset($password)) {
-            $user->setPassword($this->encode_password($password));
-        }
-
-        try {
-            $this->em->persist($user);
-            $this->em->flush();
-        } catch (Exception $e) {
-            //var_dump($e);
-        }
-    }
-
-    */
-    
+  
     /** Validar que no exista otra usuario en la base de datos */
     public function existing_user ($email, $username, $cedula) {
 
@@ -153,8 +29,7 @@ class User Extends TD_Model {
         $result = array();
         try {
             $result = $query->getArrayResult();
-        } catch (Exception $e) {
-            //var_dump($e);
+        } catch (Exception $e) {            
         }
 
         //Si no existe es valido
@@ -226,6 +101,96 @@ class User Extends TD_Model {
     public function Logout() {
         $this->session->unset_userdata('login_user_id');            
     }    
+        
+    /** Esta función crea un rol y le asigna aquellos permisos */
+    public function create_user_with_role($login_user_id) {
+        
+        $time = date('Y-m-d H:i:s', time());        
+        $birthday = NULL;
+        
+        //Si se especificó la fecha de nacimiento
+        if ($this->input->post('birthday')) {
+            $birthday = $this->input->post('birthday');
+            $birthday = str_replace('/', '-', $birthday);
+            $birthday = strtotime($birthday);
+            $birthday = date('Y-m-d H:i:s', $birthday);
+        }
+        
+        //Se crea el usuario con los datos especificados
+        $ad_user = array(        
+            
+            'Login' => ($this->input->post('login') ? $this->input->post('login') : ''),
+            'Name' => ($this->input->post('name') ? $this->input->post('name') : ''),            
+            'Password' => ($this->input->post('password') ? md5($this->input->post('password')) : ''),           
+            'Description' => ($this->input->post('description') ? $this->input->post('description') : ''),
+            'Comments' => ($this->input->post('comments') ? $this->input->post('comments') : ''),            
+            'Email' => ($this->input->post('email') ? $this->input->post('email') : ''),            
+            'Phone' => ($this->input->post('phone') ? $this->input->post('phone') : ''),                        
+            'Phone2' => ($this->input->post('phone2') ? $this->input->post('phone2') : ''),                       
+            'Birthday' => $birthday,                                  
+            'Created' => $time,
+            'CreatedBy' => $login_user_id,
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
+        
+        $inserted = FALSE;        
+        try {
+            $inserted = $this->db->insert('ad_user', $ad_user);                                    
+        } catch ( Exception $e ) {}
+        
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al registrar el usuario nuevo'); 
+            return FALSE;
+        }
+        
+        $ad_user_id = $this->db->insert_id();
+        
+                
+        //Se garantiza la presencia del rol        
+        $ad_role_id = $this->input->post('selected_value_hidden');
+        
+        
+        //Para cada una de las ventanas agregar el permiso al rol        
+        $ad_user_roles = array(
+            'AD_Role_ID' => $ad_role_id,
+            'AD_User_ID' => $ad_user_id,
+            'Created' => $time,
+            'CreatedBy' => $login_user_id,
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
+
+        $inserted = FALSE;        
+        try {                                         
+            $inserted = $this->db->insert('ad_user_roles', $ad_user_roles);
+        } catch ( Exception $e ) {}
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al guardar el rol del usuario'); 
+            return FALSE;
+        }                        
+                
+        $this->session_messages->set_message('Usuario creado con exito'); 
+        return TRUE;
+    }    
+    
+    /** Esta función lista los usuarios, con sus roles */
+    public function list_all_users () {
+        
+        $this->db->select('u.AD_User_ID ID, u.Login, u.Name Name_user, u.Description Desc_user, ' .
+            'u.Comments, u.Email, u.Phone, u.Phone2, u.Birthday, ' .
+            'a.Finder, a.Name Name_role, a.Description Desc_role'
+        );
+        $this->db->from('ad_user u');
+        $this->db->join('ad_user_roles ur', 'u.ad_user_id = ur.ad_user_id');
+        $this->db->join('ad_role a', 'a.ad_role_id = ur.ad_role_id');
+                
+        try {
+            $query = $this->db->get();                                
+            $result = $query->result();                    
+        } catch ( Exception $e) {}        
+        return $result;
+    }
     
 }
 

@@ -16,10 +16,38 @@ $(function() {
         $(this).removeClass("subhover"); //On hover out, remove class "subhover"
     });
     
-    new_datatable($('table'));    
+    
+    new_datatable($('table.paginated'), true);    
+    new_datatable($('table.no_paginated'), false);    
     
     $( "input:submit, button").button();
-    $( "input.date").datepicker();
+    
+    $( "input:submit.delete, button.delete").click(function () {
+        var agree = confirm("¿Está seguro que desea eliminar el registro?");
+        if (agree)
+            return true ;
+        else
+            return false ;        
+    });
+    
+    var last_selected_value = $('#selected_value_hidden').val();
+    var last_selected_id = $('#selected_id_hidden').val();
+    $( ".selectable" ).selectable({
+        selecting: function(event, ui) {            
+            
+            //Se guarda el ultimo
+            last_selected_value = ui.selecting.value;
+            last_selected_id = ui.selecting.id;
+        },
+        stop: function(event, ui) {                                   
+            $(event.target).children('.ui-selected').not("#" + last_selected_id).removeClass('ui-selected');           
+            $( '#selected_value_hidden' ).val(last_selected_value);                        
+            $( '#selected_id_hidden' ).val(last_selected_id);                        
+        }        
+    });
+
+    //Se coloca como seleccionado, aquellos que vienen de un post anterior
+    $("#" + last_selected_id, ".selectable" ).addClass('ui-selected');
     
     $(document).delegate('div.message', 'click', function () {
         $(this).hide();        
@@ -32,11 +60,16 @@ $(function() {
 * Ya que todas las tablas generadas tendrán el formato de las data tables 
 * se usa esta función para setear los valores por defecto
 */
-function new_datatable($selector, $column_info) {
+function new_datatable($selector, paginate) {
 
+    if ($selector.size() == 0) 
+        return;
+    
     $selector.dataTable({         
         "bJQueryUI": true,        
-        "bPaginate": false,        
+        "bPaginate": paginate,        
+        "sScrollX": "100%",
+        "bScrollCollapse": false,
         "sPaginationType": "full_numbers",                 
         "oLanguage": { 
             "oPaginate": { 

@@ -10,23 +10,23 @@
 
             <div id="form_data">
                 <div class="fieldcontain">
-                    <label for="realname" class="ui-state-active">Clave de búsqueda:</label>
+                    <label for="finder" class="ui-state-active">Clave de búsqueda:</label>
                     <?php echo form_input($form_input['finder']); ?>
                 </div>
 
                 <div class="fieldcontain">
-                    <label for="realname" class="ui-state-default">Nombre del rol:</label>
+                    <label for="name" class="ui-state-default">Nombre del rol:</label>
                     <?php echo form_input($form_input['name']); ?>
                 </div>
 
                 <div class="fieldcontain">
-                    <label for="realname" class="ui-state-default">Descripción del rol:</label>
+                    <label for="description" class="ui-state-default">Descripción del rol:</label>
                     <?php echo form_textarea($form_input['description']); ?>
                 </div>
 
             </div>
 
-            <table class="display dataTable" id="role_permission_table">
+            <table class="display dataTable no_paginated" id="role_permission_table">
                 <thead>
                     <tr role="row">                                  
                         <th>Módulo</th>                            

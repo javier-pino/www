@@ -1947,6 +1947,7 @@ div#main {
 div#form_buttons {
     width: 300px;
     margin: 30px auto 0 auto;
+    text-align: center;
 }
 
 div#form_data {
@@ -1960,27 +1961,28 @@ div.fieldcontain {
     margin-bottom: 25px;   
 }
 
-.fieldcontain input, .fieldcontain textarea {
+.fieldcontain input, .fieldcontain textarea, .fieldcontain div {
     width:80%;
     display:inline-block;
-    border: 1px solid #999;
-    height: 25px;
+    border: 1px solid #999;   
     float: right;
     -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);       
 }
 
+.fieldcontain input {
+    height: 25px;
+}
+
 .fieldcontain textarea {
-    width:80%;
-    display:inline-block;
-    border: 1px solid #999;
     height: 100px;
     resize:none ;
-    float: right;
-    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);       
+}
+
+.fieldcontain div {
+    height: auto;
+    border: none;   
 }
 
 div.fieldcontain label {
@@ -1988,11 +1990,13 @@ div.fieldcontain label {
     display:inline-block;
 }
 
+.selectable .ui-selecting { background: #3B443C; color: white}
+.selectable .ui-selected { background: #23861D; color: white; }
+.selectable { list-style-type: none; margin: 0; padding: 0; width: auto; }
+.selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
+
 div#messages {    
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto 10px auto;    
 }
 
 div#messages p {
@@ -2010,3 +2014,12 @@ div#create_rol_permission {
     margin-right: auto;
 }
 
+a.table_link:hover {
+    color: #23861D;
+    font-weight: bold;
+}
+
+a.table_link {
+    color: #3B443C;
+    font-weight: bold;
+}

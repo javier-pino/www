@@ -185,32 +185,20 @@ class Role Extends TD_Model {
         return TRUE;
     }    
     
-    /** Esta función retorna todas los posibles roles de un usuario */
+    /** 
+     * Esta función retorna todas los posibles roles de un usuario 
+     * Retorna un arreglo de stdClass con los parametros ID, Finder, Name     
+     */
     public function get_all_roles () {         
                 
         //Como se tiene el rol, se buscan las ventanas existentes asociadas
         $result = array();    
-        $this->db->from('ad_role')->order_by("name", "asc");
+        $this->db->select('AD_Role_ID as ID, Finder, Name')->from('ad_role')->order_by("name", "asc");
         try {
-            $result = $this->db->get();
-            var_dump($result, $this->db)
-                    ;            
-        } catch (Exception $e) {
-            
-        }
-        die;
-        
-
-        $this->qb = $this->em->createQueryBuilder();
-        $query = $this->qb->select('w')
-                ->from('Entities\AdWindow', 'w')                                                
-                ->orderBy('w.module, w.name')
-                ->getQuery();                      
-        try {                        
-             //Si tiene un rol asociado buscarlo
-            $result = $query->getResult();             
-        } catch (Exception $e) {}
-        return $result;        
+            $query = $this->db->get();                        
+            $result = $query->result();                    
+        } catch (Exception $e) {}                  
+        return $result;
     }
     
 }
