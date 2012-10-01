@@ -1,5 +1,3 @@
-
-    
 </div>
 <div id="footer">
     <p><a href="<?php echo base_url(); ?>" class="footer-logo">

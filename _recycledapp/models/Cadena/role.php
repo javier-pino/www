@@ -13,43 +13,41 @@
 class Role Extends TD_Model {
 
     /** Esta función permite encontrar el rol asociado a un usuario */
-    public function getUserRole (Entities\AdUser $adUser) {
+    public function getUserRole (stdClass $adUser) {
         
-        $result = NULL;        
-        $query = $this->qb->select('u, ur')
-                ->from('Entities\ADUserRoles', 'ur')                
-                ->join('ur.adUser', 'u')
-                ->where('u.adUserId = '. $adUser->getAdUserId())
-                ->getQuery();                        
-        try {                        
-             //Si tiene un rol asociado buscarlo
-            $result = $query->getSingleResult()->getAdRole();            
-        } catch (Exception $e) {}
-        
-        return $result;
+        $result = NULL;                               
+        $this->db->from('AD_Role')
+                 ->where(array('AD_Role_ID' => $adUser->AD_Role_ID));
+        try {
+            $query = $this->db->get();                                
+            $result = $query->result();                                
+            if (!empty($result)) {
+                $result = $result[0];
+            }
+        } catch ( Exception $e) {}        
+        return $result;                
     }
 
     /** Esta función indica si el rol puede acceder a la ventana solicitada */
-    public function isAuthorizedRole (Entities\AdRole $role) {
-        
+    public function isAuthorizedRole (stdClass $role) {
+                
         //Verificar si el rol tiene acceso al url                
-        $document_dir = $this->get_ad_window();                  
-        $query = $this->qb->select('rw')
-            ->from('Entities\ADRoleWindows', 'rw')                
-            ->join('rw.adRole', 'r')            
-            ->join('rw.adWindow', 'w')                           
-            ->where('r.adRoleId = '. $role->getAdRoleId())
-            ->andWhere('w.documentdir = :directory')
-            ->getQuery();                
-        $query->setParameter('directory', $document_dir);
-        try {                        
-             //Si existe la relación, quiere decir que si esta permitido
-            $result = $query->getSingleResult();                                    
-            if ($result) {
+        $document_dir = $this->get_ad_window(); 
+                
+        $this->db->from('AD_Role_Windows rw')
+                ->join('AD_Window w', 'w.AD_Window_ID = rw.AD_Window_ID')                
+                 ->where(array(
+                     'rw.AD_Role_ID' => $role->AD_Role_ID,
+                     'w.DocumentDir' => $document_dir,                                          
+                ));
+        try {
+            $query = $this->db->get();
+            $result = $query->result();                                            
+            if (!empty($result)) {
                 return TRUE;
-            }            
-        } catch (Exception $e) {}        
-        return FALSE;
+            }
+        } catch ( Exception $e) {}        
+        return FALSE;                        
     }
 
     /** Obtener el url de la ventana que se desea acceder */
@@ -69,26 +67,28 @@ class Role Extends TD_Model {
     }
     
     /** Esta función retorna las ventanas disponibles para el rol que se ha conectado */
-    public function get_allowed_ad_windows (\Entities\AdRole $ad_role) {         
+    public function get_allowed_ad_windows (stdClass $ad_role) {         
                 
-        //Como se tiene el rol, se buscan las ventanas existentes asociadas
+        //Como se tiene el rol, se buscan las ventanas existentes asociadas             
         $result = array();        
-        $this->qb = $this->em->createQueryBuilder();
-        $query = $this->qb->select('rw, ro, wi')
-                ->from('Entities\ADRoleWindows', 'rw')                
-                ->join('rw.adRole', 'ro')
-                ->join('rw.adWindow', 'wi')
-                ->where('ro.adRoleId ='. $ad_role->getAdRoleId())
-                ->andWhere("wi.class != 'edit'")
-                ->getQuery();                        
-        try {                        
-             //Si tiene un rol asociado buscarlo
-            $result_temp = $query->getResult(); 
-            foreach ($result_temp as $res) {
-                $w = $res->getAdWindow();
-                $result[$w->getModule()][] = $w;
+                
+        $this->db->select('w.*')
+                ->from('AD_Role_Windows rw')
+                ->join('AD_Window w', 'w.AD_Window_ID = rw.AD_Window_ID')                
+                 ->where(array(
+                     'rw.AD_Role_ID' => $ad_role->AD_Role_ID,
+                     "w.class !=" => 'edit'
+                ));
+        try {
+            $query = $this->db->get();
+            $result_temp = $query->result();   
+             
+            //Si tiene un rol asociado buscarlo
+            foreach ($result_temp as $res) {                
+                $result[$res->Module][] = $res;
             }
-        } catch (Exception $e) {}
+            
+        } catch ( Exception $e) {}                
         return $result;        
     }
     

@@ -204,6 +204,26 @@ class Usuarios extends TD_Role_Controller {
             redirect(base_url('usuarios/usuarios/'));
         }
         
+        //Precargar la información de los roles preexistentes
+        $this->load->model('Cadena/role');
+        $roles = $this->role->get_all_roles();
+        
+        //Precargar la información
+        $this->load->model('Cadena/user');
+        $user = $this->user->find_user_and_role($ad_user_id);
+                        
+        //Si la accion a realizar es eliminar al usuario, proceder sin validar        
+        if ($this->input->post('delete'))  {            
+            
+            $success = $this->user->delete_user($this->login_user_id);            
+            if ($success) {
+                redirect(base_url('usuarios/usuarios/'));
+            } else {
+                redirect(base_url('usuarios/usuarios/editar/' . $ad_user_id));
+            }            
+            
+        }
+        
         //Cargar las variables de la vista                
         $this->data['title'] = $this->client_name . ' - Editar Usuario';
         $this->data['header'] = 'Editar Usuario';
@@ -215,14 +235,6 @@ class Usuarios extends TD_Role_Controller {
         );
 
         $this->data['form_action'] = 'usuarios/usuarios/editar/' . $ad_user_id;
-                
-        //Precargar la información de los roles preexistentes
-        $this->load->model('Cadena/role');
-        $roles = $this->role->get_all_roles();
-        
-        //Precargar la información
-        $this->load->model('Cadena/user');
-        $user = $this->user->find_user_and_role($ad_user_id);
                 
         //Preformat birthday
         if (!set_value('birthday')) {
@@ -365,7 +377,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "delete",                
                 'value' => TRUE
             )
-        );                
+        );                        
         
         //Validar el formulario, en caso de que no pase la prueba o no exista mostrarlo
         $this->load->library('form_validation');
@@ -382,7 +394,7 @@ class Usuarios extends TD_Role_Controller {
         $this->form_validation->set_rules("birthday",'"Fecha de Nacimiento"', "max_length[10]|is_date");
         $this->form_validation->set_rules("selected_value_hidden",'"Rol de Acceso"', "required");                        
         $this->form_validation->set_error_delimiters('<p>', '</p>');
-                
+                        
         //Verificar el seguimiento de las reglas
         if ($this->form_validation->run($this) == FALSE ) {
             
@@ -450,4 +462,3 @@ class Usuarios extends TD_Role_Controller {
     }
     
 }
-

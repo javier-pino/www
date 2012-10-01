@@ -12,15 +12,14 @@
                 <li id="dropdown">                    
                     <a href="#" id="cash" class="<?php echo $windows_class[$module];?>">
                        <?php echo $module ;?>
-                    </a>
-                    
+                    </a>                    
                     <div class="dropdown">
                         <div class="dropdown-inner">
                             <ul class="worksheet-views">
                                 <?php foreach ($windows as $window) : ?>
-                                    <li><a href="<?php echo base_url($window->getDocumentdir()); ?>" 
-                                           class="<?php echo $window->getClass(); ?>">
-                                            <?php echo $window->getName(); ?>                                            
+                                    <li><a href="<?php echo base_url($window->DocumentDir); ?>" 
+                                           class="<?php echo $window->Class; ?>">
+                                            <?php echo $window->Name; ?>                                            
                                         </a>
                                     </li>                                
                                 <?php endforeach; ?> 

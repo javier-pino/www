@@ -65,7 +65,7 @@ class TD_Controller extends MX_Controller {
 class TD_Login_Controller extends TD_Controller {
                
     /**
-     * @var Entities\ADUser Usuario logueado en el sistema
+     * @var stdClass Usuario logueado en el sistema
      * Esta variable almacena el usuario identificado
      */
     protected $login_user = NULL;
@@ -85,34 +85,27 @@ class TD_Login_Controller extends TD_Controller {
         parent::__construct();
         
         //Buscar el cliente en la sesión
-        $this->login_user_id = $this->session->userdata('login_user_id');        
-
-        if ($this->login_user_id) {  //Buscar al usuario en la base de datos                                     
-            $this->login_user = $this->em->find('Entities\AdUser', $this->login_user_id);
-        } else {
+        $this->load->model('Cadena/user');        
+        $this->login_user_id = $this->session->userdata('login_user_id');  
+        
+        //Si no está en sesión
+        if (!$this->login_user_id) {
             
             //Buscarlo en las cookies e iniciar sesión
-            $login_cookie = $this->get_login_cookie();            
-            if ($login_cookie) {
-                $result = $this->em->getRepository('Entities\AdUser')
-                        ->findBy(
-                            array(
-                                'login' => $login_cookie[0],
-                                'password' => $login_cookie[1],
-                         ));                
+            $login_cookie = $this->get_login_cookie();                        
+            if ($login_cookie) {                
+                
                 //Si se encuentra, iniciar la sesión sino entonces buscar el cookie de inicio de sesión
-                if (!empty ($result)) {
-                    $this->login_user = $result[0];
-                    $this->login_user_id = $this->login_user->getAdUserId();
-                    $this->session->set_userdata('login_user_id', $this->login_user->getAdUserId());
-                }
+                $this->login_user_id = $this->user->Login($login_cookie[0], $login_cookie[1], TRUE, TRUE);
             }
-        }               
+        }
         
         $this->data['client_name'] = $this->client_name;
-        if ($this->login_user)
-            $this->data['user_name'] = $this->login_user->getName();
-        
+        if ($this->login_user_id) {  //Buscar al usuario en la base de datos                                     
+            $this->login_user = $this->user->find_user_and_role($this->login_user_id);                        
+            $this->data['user_name'] = $this->login_user->Name_user;
+        }        
+               
         //Para evitar llamar varias veces a base_url  para los css y js se usa array_map     
         $this->data['css'] = array_map('base_url',
             array(                    
@@ -171,10 +164,10 @@ class TD_Login_Controller extends TD_Controller {
     
     /** Retorna el cliente global, en caso de que exista */ 
     public function get_login_user() {        
-        if (!$this->login_user_id) 
+        if (!$this->login_user) 
             return false;
         else 
-            return $this->login_user_id;
+            return $this->login_user;
     }
     
     /** Retorna un booleano que indica si el usuario está conectado o no */
@@ -200,7 +193,7 @@ class TD_Login_Controller extends TD_Controller {
     /** Llamar a esta función implica que el usuario debe estar logueado para acceder
         a esta funcionalidad
      */
-    public function need_login() {        
+    public function need_login() {             
         if (!$this->is_login()) {            
             redirect(base_url('usuarios/sesion/iniciar'));            
         }        
@@ -213,7 +206,7 @@ class TD_Login_Controller extends TD_Controller {
 class TD_Role_Controller extends TD_Login_Controller {
                
     /**
-     * @var Entities\ADRole Rol del usuario que está logueado     
+     * @var stdClass Rol del usuario que está logueado     
      */
     private $login_role = NULL;
     
@@ -233,17 +226,18 @@ class TD_Role_Controller extends TD_Login_Controller {
             //Obtener el rol y determinar si el rol está autorizado
             $this->load->model('Cadena/role');                                    
             $this->login_role = $this->role->getUserRole($this->login_user);
-                       
+            
             if ($this->login_role) {                
                 $this->authorized = $this->role->isAuthorizedRole($this->login_role);                
-                
+                        
                 //Buscar las pantallas que tiene permitidas
-                $this->data['role_name'] = $this->login_role->getName();
+                $this->data['role_name'] = $this->login_role->Name;
                 $this->data['allowed_ad_windows'] =                         
                         $this->role->get_allowed_ad_windows($this->login_role);                 
-                $this->data['windows_class'] = $this->role->get_modules_class();                
+                
+                $this->data['windows_class'] = $this->role->get_modules_class();                            
             }
-        }             
+        }                     
     }
     
     /** Indica si el usuario está autorizado para acceder a la ventana */

@@ -41,38 +41,59 @@ class User Extends TD_Model {
     
     public function verifyLogin($login, $password) {        
         
-        //Buscar el usuario y contraseña
-        $ad_users = $this->em->getRepository('Entities\ADUser')->findBy(array(
-                'login' => $login,
-                'password' => md5($password)                                      
-            )
-        );        
-        if (empty($ad_users)) 
-            return FALSE;
-        else 
+        $result = 0;
+        
+        //Buscar el usuario y contraseña        
+        $this->db->from('AD_User u')
+                ->where(
+                    array(
+                        'Login' => $login,
+                        'Password' => md5($password),
+                        'Is_Active' => TRUE
+                    )
+                );        
+        try {                                       
+            $result = $this->db->count_all_results();                      
+        } catch ( Exception $e) {}               
+                             
+        if ($result > 0) 
             return TRUE;
+        else 
+            return FALSE;
+        
     }
     
-    /** Esta función logue al usuario en el sistema */ 
-    public function Login($login, $password, $remember) {
+    /** Esta función logue al usuario en el sistema
+     * Retorna el id del usuario logueado
+     * 
+     */ 
+    public function Login($login, $password, $remember, $cookie) {
         
-        //Buscar el usuario y contraseña
-        $ad_users = $this->em->getRepository('Entities\ADUser')->findBy(array(
-                'login' => $login,
-                'password' => md5($password)                                      
-            )
-        );           
-        if (!empty($ad_users))  {
-            
+        $ad_users = array();
+        
+        //Buscar el usuario y contraseña        
+        $this->db->from('AD_User u')
+                ->where(array(
+                        'Login' => $login,
+                        'Password' => ($cookie ? $password : md5($password)),                
+                        'Is_Active' => TRUE
+                ));        
+        try {                                       
+            $query = $this->db->get();           
+            $ad_users = $query->result();            
+        } catch ( Exception $e) {}               
+        
+        if (!empty($ad_users))  {           
             //Iniciar sesion en code igniter
-            $user = $ad_users[0];            
-            $this->session->set_userdata('login_user_id', $user->getAdUserId());            
+            $user = $ad_users[0];                  
+            $this->session->set_userdata('login_user_id', $user->AD_User_ID);                                    
             if ($remember) {
                 $this->rememberLogin($login, $password);
-            }            
+            }                        
         } else {
             show_error('No es posible iniciar sesión en el sistema con los datos especificados');
-        }
+        }         
+        return $user->AD_User_ID;
     }
     
     /** Recuerda al usuario, guardando su sesión en una cookie */
@@ -144,13 +165,11 @@ class User Extends TD_Model {
             return FALSE;
         }
         
-        $ad_user_id = $this->db->insert_id();
-        
+        $ad_user_id = $this->db->insert_id();        
                 
         //Se garantiza la presencia del rol        
         $ad_role_id = $this->input->post('selected_value_hidden');
-        
-        
+                
         //Para cada una de las ventanas agregar el permiso al rol        
         $ad_user_roles = array(
             'AD_Role_ID' => $ad_role_id,
@@ -168,9 +187,8 @@ class User Extends TD_Model {
         if (!$inserted) {
             $this->session_messages->set_error('Ocurrió un error al guardar el rol del usuario'); 
             return FALSE;
-        }                        
-                
-        $this->session_messages->set_message('Usuario creado con éxito'); 
+        }                                        
+        $this->session_messages->set_message('Usuario creado exitosamente'); 
         return TRUE;
     }    
     
@@ -190,8 +208,7 @@ class User Extends TD_Model {
         $ad_user_id = $this->input->post('id');
         
         //Se actualiza al usuario con los datos especificados
-        $ad_user = array(        
-            
+        $ad_user = array(                    
             'Login' => ($this->input->post('login') ? $this->input->post('login') : ''),
             'Name' => ($this->input->post('name') ? $this->input->post('name') : ''),                        
             'Description' => ($this->input->post('description') ? $this->input->post('description') : ''),
@@ -220,9 +237,7 @@ class User Extends TD_Model {
             $this->session_messages->set_error('Ocurrió un error al actualizar el registro'); 
             return FALSE;
         }
-            
-        var_dump($_POST);
-        
+
         //Se garantiza la presencia del rol        
         $ad_role_id = $this->input->post('selected_value_hidden');
                 
@@ -247,10 +262,41 @@ class User Extends TD_Model {
             return FALSE;
         }
                 
-        $this->session_messages->set_message('Usuario actualizado con éxito'); 
+        $this->session_messages->set_message('Usuario actualizado exitosamente'); 
         return TRUE;
     }    
     
+    /** 
+     * Esta función elimina los usuarios de las base de datos
+     */
+    public function delete_user($login_user_id) {
+        
+        $time = date('Y-m-d H:i:s', time());        
+        $ad_user_id = $this->input->post('id');
+        
+        //Se actualiza al usuario con los datos especificados
+        $ad_user = array(                    
+            'Is_Active' => FALSE,            
+            'Updated' => $time,
+            'UpdatedBy' =>  $login_user_id,  
+        );
+        
+        //Se actualiza en la base de datos
+        $inserted = FALSE;        
+        try {
+            $this->db->where('ad_user_id', $ad_user_id);
+            $inserted = $this->db->update('ad_user', $ad_user);             
+        } catch ( Exception $e ) {}
+                
+        if (!$inserted) {
+            $this->session_messages->set_error('Ocurrió un error al eliminar el registro'); 
+            return FALSE;
+        }
+        
+        $this->session_messages->set_message('Usuario eliminado exitosamente'); 
+        return TRUE;
+    }
+       
     /** Esta función lista los usuarios, con sus roles */
     public function list_all_users () {
         
@@ -260,8 +306,7 @@ class User Extends TD_Model {
         );
         $this->db->from('ad_user u');
         $this->db->join('ad_user_roles ur', 'u.ad_user_id = ur.ad_user_id');
-        $this->db->join('ad_role a', 'a.ad_role_id = ur.ad_role_id');
-                
+        $this->db->join('ad_role a', 'a.ad_role_id = ur.ad_role_id');                
         try {
             $query = $this->db->get();                                
             $result = $query->result();                    
@@ -292,7 +337,7 @@ class User Extends TD_Model {
         return NULL;                
     }
     
-        /** Dado un id de usuario, busca al usuario en la base de datos */
+    /** Dado un id de usuario, busca al usuario en la base de datos */
     public function is_repeated_login ($login, $ad_user_id) {
                        
         $this->db
