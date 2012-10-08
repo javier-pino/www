@@ -33,12 +33,20 @@
         <tbody>
             <?php foreach ($listar as $rol => $usuarios) : ?>                
                 <?php foreach ($usuarios as $usuario) : ?>                
-                    <tr>                        
+                    <tr>                                                
                         <td>
-                            <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->AD_Role_ID ); ?>">
+                            <?php if ($usuario->Finder != 'admin') :?>
+                                <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->AD_Role_ID ); ?>">
+                            <?php endif; ?>
+                                
                                 <?php echo $usuario->Finder; ?>
-                            </a>                            
+
+                            <?php if ($usuario->Finder != 'admin') :?>
+                                 </a>                            
+                            <?php endif; ?>                        
                         </td>
+                            
+                        
                         <td>
                             <?php echo $usuario->Name_role; ?>                            
                         </td>                                

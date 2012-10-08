@@ -166,13 +166,16 @@ class Roles extends TD_Role_Controller {
         
         //Precargar la información
         $this->load->model('Cadena/role');
-        $user = $this->role->find_role($ad_role_id);
-        
+        $user = $this->role->find_role($ad_role_id);        
         if (!$user) {            
             $this->session_messages->set_error('Operación incorrecta. No se encontró el rol a editar');
             redirect(base_url('usuarios/roles/'));
         }        
-                        
+        if ($user->Finder == 'admin') {
+            $this->session_messages->set_error('Operación incorrecta. No se puede modificar al rol "admin"');
+            redirect(base_url('usuarios/roles/'));
+        }
+                       
         //Si la accion a realizar es eliminar al usuario, proceder sin validar        
         if ($this->input->post('delete'))  {                        
             redirect(base_url('usuarios/roles/eliminar/' . $ad_role_id));            
@@ -325,12 +328,11 @@ class Roles extends TD_Role_Controller {
     public function eliminar($ad_role_id = NULL) {
         
         $this->need_role_authorization();
-
+                
         //Si recibe esta variable por get, significa que solo se desea eliminar dicho registro
         if ($ad_role_id) {
             
-            //Eliminarlo
-            $this->load->model('Cadena/role');
+            //Eliminarlo            
             $success = $this->role->delete_role($this->login_user_id, $ad_role_id);                                                 
             if ($success) {
                 redirect(base_url('usuarios/roles/'));

@@ -991,7 +991,7 @@ a.matched:hover {
 ---------------------------------------------------- */
 
 p {
-    margin: 0 0 9px 0;
+    margin: 0;
     }
 p.add {
     padding: 6px 9px;
@@ -1996,16 +1996,19 @@ div.fieldcontain label {
 .selectable li { margin: 3px; padding: 0.4em; font-size: 1em; height: 18px; }
 
 div#messages {    
-    margin: 10px auto 10px auto;    
+    margin: 10px auto;    
 }
 
-div#messages p {
-    margin-top: 20px;
+div#messages p {    
     padding: 0 .7em;
 }
 
 div#create_rol_permission, div#create_rol_basic {
     margin: 25px 0 25px 0;    
+}
+
+div#messages div.message {
+    margin: 10px 0;
 }
 
 div#create_rol_permission {

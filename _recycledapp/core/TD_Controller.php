@@ -23,19 +23,6 @@ require APPPATH."third_party/MX/Controller.php";
  * en una variable global
  */
 class TD_Controller extends MX_Controller {
-
-    //Declaro las propiedades con tipo, para que sea el tipo adecuado y netbeans
-    //pueda detectarlas
-
-    /**
-     * @var Doctrine\ORM\EntityManager
-     */
-    public $em = null;
-
-    /**
-     * @var \Doctrine\ORM\QueryBuilder
-     */
-    public $qb = null;
     
     //Para mostrar comodamente el nombre del cliente
     public $client_name = '';
@@ -47,13 +34,8 @@ class TD_Controller extends MX_Controller {
      * ademas de haber determinado el dispositivo */
     public function  __construct()
     {
-        parent::__construct();
-        
-        //Instantiate a Doctrine Entity Manager, Querybuilder, Database
-        $this->load->database();
-        $this->em = $this->doctrine->em;
-        $this->qb = $this->em->createQueryBuilder();                
-        
+        parent::__construct();        
+                
         //Traer textos de configuracion para tenerlos a la mano
         $this->load->config('cadena_suministros');                
         $this->client_name = $this->config->item('client_name'); 

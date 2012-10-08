@@ -24,9 +24,15 @@
             <?php foreach ($listar as $usuario) : ?>                                
                 <tr>                        
                     <td>
-                        <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->ID ); ?>">
+                        <?php if ($usuario->Finder != 'admin') :?>
+                            <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->ID ); ?>">
+                        <?php endif; ?>
+                        
                             <?php echo $usuario->Finder; ?>
-                        </a>                            
+                                
+                        <?php if ($usuario->Finder != 'admin') :?>
+                             </a>                            
+                        <?php endif; ?>                        
                     </td>
                     <td>
                         <?php echo $usuario->Name; ?>                            

@@ -216,7 +216,7 @@ class Role Extends TD_Model {
                
         $time = date('Y-m-d H:i:s', time());               
         $ad_role_id = $this->input->post('id');
-        
+                
         //Se crea el rol actual
         $ad_role = array(        
             'Description' => ($this->input->post('description') ? $this->input->post('description') : ''),            
@@ -333,6 +333,17 @@ class Role Extends TD_Model {
      */
     public function delete_role($login_user_id, $ad_role_id) {
         
+        $this->load->model('Cadena/role');
+        $delete_role = $this->role->find_role($ad_role_id);
+        if (!$delete_role) {            
+            $this->session_messages->set_error('Operación incorrecta. No se encontró el rol a editar');
+            return FALSE;
+        }        
+        if ($delete_role->Finder == 'admin') {
+            $this->session_messages->set_error('Operación incorrecta. No se puede eliminar el rol "admin"');
+            return FALSE;
+        }    
+                
         //Esta función debe validar que no haya usuarios con este rol
         $users = $this->get_users_with_role($ad_role_id);        
         if ($users) {

@@ -11,34 +11,7 @@
  */
 
 class User Extends TD_Model {
-  
-    /** Validar que no exista otra usuario en la base de datos */
-    public function existing_user ($email, $username, $cedula) {
-
-        $query = $this->qb->select('u')
-                  ->from('models\User', 'u')
-                  ->where('u.email = :user_email')
-                  ->orWhere("u.username != '' and u.username = :user_name" )
-                  ->orWhere('u.cedula = :user_cedula')
-                  ->getQuery();
-
-        $query->setParameter('user_email', $email)
-                ->setParameter('user_name', $username)
-                ->setParameter('user_cedula', $cedula);
-
-        $result = array();
-        try {
-            $result = $query->getArrayResult();
-        } catch (Exception $e) {            
-        }
-
-        //Si no existe es valido
-        if (!empty($result))
-            return TRUE;
-        else
-            return FALSE;
-    }
-    
+      
     public function verifyLogin($login, $password) {        
         
         $result = 0;
@@ -64,8 +37,7 @@ class User Extends TD_Model {
     }
     
     /** Esta función logue al usuario en el sistema
-     * Retorna el id del usuario logueado
-     * 
+     * Retorna el id del usuario logueado   
      */ 
     public function Login($login, $password, $remember, $cookie) {
         
@@ -194,6 +166,15 @@ class User Extends TD_Model {
     
     public function update_user_with_role($login_user_id) {
         
+        //Este campo siempre existe
+        $ad_role_id = $this->input->post('selected_value_hidden');
+        $ad_user_id = $this->input->post('id');
+        
+        //Validar, antes de eliminar que exista el usuario
+        $this->another_admin_exist($ad_user_id, $ad_role_id);
+        
+        die;
+        
         $time = date('Y-m-d H:i:s', time());        
         $birthday = NULL;
         
@@ -205,7 +186,7 @@ class User Extends TD_Model {
             $birthday = date('Y-m-d H:i:s', $birthday);
         }
         
-        $ad_user_id = $this->input->post('id');
+        
         
         //Se actualiza al usuario con los datos especificados
         $ad_user = array(                    
@@ -237,10 +218,7 @@ class User Extends TD_Model {
             $this->session_messages->set_error('Ocurrió un error al actualizar el registro'); 
             return FALSE;
         }
-
-        //Se garantiza la presencia del rol        
-        $ad_role_id = $this->input->post('selected_value_hidden');
-                
+        
         //Actualizar el rol
         $ad_user_roles = array(        
             'AD_Role_ID' => $ad_role_id,            
@@ -271,6 +249,9 @@ class User Extends TD_Model {
      */
     public function delete_user($login_user_id, $ad_user_id) {
         
+        //Validar, antes de eliminar que exista el usuario
+        $this->another_admin_exist($ad_user_id);
+               
         $time = date('Y-m-d H:i:s', time());        
          
         //Se actualiza al usuario con los datos especificados
@@ -282,7 +263,7 @@ class User Extends TD_Model {
         
         //Se actualiza en la base de datos
         $inserted = FALSE;        
-        try {
+        try {            
             $this->db->where('ad_user_id', $ad_user_id);
             $inserted = $this->db->update('ad_user', $ad_user);                         
         } catch ( Exception $e ) {}
@@ -356,6 +337,70 @@ class User Extends TD_Model {
         return FALSE;                
     }
     
+    /** Esta función valida que en el sistema, siempre exista un usuario admin*/
+    public function another_admin_exist ($ad_user_id, $new_ad_role_id = NULL) {
+        
+        //Buscar el rol actual, y si es admin, antes de quitarle el rol validar que exista otro usuario                       
+        $old_user = $this->find_user_and_role($ad_user_id);
+        
+        $this->load->model('Cadena/role');        
+        $old_role = $this->role->getUserRole ($old_user);
+        
+        if (!$new_ad_role_id) {
+            $new_role = NULL;
+        } else {
+            $old_user->AD_Role_ID = $new_ad_role_id;
+            $new_role = $this->role->getUserRole ($old_user);
+        }
+        
+        $validate_others_admin = FALSE;
+        
+        //Si el rol viejo es admin, y el nuevo lo intenta cambias.
+        if ($old_role->Finder == 'admin') {            
+            
+            //Si el rol es distinto de null, quiere decir que se está editando, sino está eliminando
+            if ($new_role != NULL) {
+                //Se está editando
+                                
+                if ($old_role->Finder != $new_role->Finder) {
+                    //Si el rol cambió, entonces debe validarse que exista un reemplazo
+                    $validate_others_admin = TRUE;                    
+                }                            
+            } else {
+                //Se está eliminando
+                $validate_others_admin = TRUE;
+            }
+        }
+        
+        $another_admin = FALSE;
+        //Buscar otros usuarios con el rol de administracion              
+        if ($validate_others_admin) {            
+            $admin_users = $this->role->get_users_with_role($old_role->AD_Role_ID);
+            
+            //Validar que exista algun otro usuario que tenga el rol admin
+            foreach ($admin_users as $admin) {                
+                               
+                //Validar que dichos usuarios al menos uno esté activo,                                 
+                if ($admin->AD_User_ID == $old_user->ID) {                    
+                    continue;
+                } else if ($admin->Is_Active == '1') {
+                    $another_admin = TRUE;
+                    continue;
+                }
+            }            
+        }
+                
+        //Si tocaba validar y no hay otro usuario administrador
+        if ($validate_others_admin && !$another_admin) {
+            ECHO 'NO HAY OTRO ADMIN';
+            return FALSE;            
+        }
+        
+        'HAY OTRO ADMIN O NO TOCABA VALIDAR';
+        return TRUE;        
+    }
+        
+     
 }
 
 /* Fin de archivo user.php */

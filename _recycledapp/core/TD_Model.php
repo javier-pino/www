@@ -24,29 +24,7 @@
 /** Esta clase permite crear modelos que carguen las variables de la base de datos  */
 class TD_Model extends CI_Model {
 
-    //Declaro las propiedades con tipo, para que sea el tipo adecuado y netbeans
-    //pueda detectarlas
-
-    /**
-     * @var Doctrine\ORM\EntityManager
-     */
-    public $em = null;
-
-    /**
-     * @var \Doctrine\ORM\QueryBuilder
-     */
-    public $qb = null;
-
-    /** Contruye el objeto con las funciones de base de datos ya cargadas,
-     * ademas de haber determinado el dispositivo */
-    public function  __construct()
-    {
-        parent::__construct();
-        
-        //Instantiate a Doctrine Entity Manager, Querybuilder, Database
-        $this->load->database();
-        $this->em = $this->doctrine->em;
-        $this->qb = $this->em->createQueryBuilder();
-    }
+    //Actualmente esta vacia, puesto que aqui se sobrescribió y se deshicieron los cambios
+    
 }
 /* Fin de archivo TD_Model.php */

@@ -104,8 +104,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "email",
                 'id' => "email",
                 'value' => set_value('email'),
-                'placeholder' => "Ej: j.pinobetancourt@gmail.com, cvillanueva@gmail.com",
-                'required' => true,  
+                'placeholder' => "Ej: j.pinobetancourt@gmail.com, cvillanueva@gmail.com",                
                 'max_length' => '255'
             ),                                   
             'birthday' => array(
@@ -114,8 +113,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "birthday",
                 'id' => "birthday",
                 'value' => set_value('birthday'),
-                'placeholder' => "Ej: 23/08/1974",
-                'required' => true,  
+                'placeholder' => "Ej: 23/08/1974",                
                 'max_length' => '10'
             ),                 
             'phone' => array(                
@@ -123,8 +121,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "phone",
                 'id' => "phone",
                 'value' => set_value('phone'),
-                'placeholder' => "Ej: (0416) 000 00 00",
-                'required' => true,  
+                'placeholder' => "Ej: (0416) 000 00 00",                
                 'max_length' => '20'
             ),
             'phone2' => array(                
@@ -133,7 +130,7 @@ class Usuarios extends TD_Role_Controller {
                 'id' => "phone2",
                 'value' => set_value('phone2'),
                 'placeholder' => "Ej: (0416) 000-0000",
-                'required' => true,  
+                
                 'max_length' => '20'
             ),            
             'roles' => $roles,
@@ -228,8 +225,8 @@ class Usuarios extends TD_Role_Controller {
         if (!$user) {            
             $this->session_messages->set_error('Operación incorrecta. No se encontró el usuario a editar');
             redirect(base_url('usuarios/usuarios/'));
-        }
-                        
+        }        
+        
         //Si la accion a realizar es eliminar al usuario, proceder sin validar        
         if ($this->input->post('delete'))  {                        
             redirect(base_url('usuarios/usuarios/eliminar/' . $ad_user_id));            
@@ -246,12 +243,15 @@ class Usuarios extends TD_Role_Controller {
         );
 
         $this->data['form_action'] = 'usuarios/usuarios/editar/' . $ad_user_id;
-                
+                        
+        $birthday = '';
         //Preformat birthday
         if (!set_value('birthday')) {
-            $birthday = $user->Birthday;
-            $date = explode('-', $birthday);
-            $birthday = $date[2] .'/'.$date[1]. '/' .$date[0];            
+            if ($user->Birthday) {
+                $birthday = $user->Birthday;
+                $date = explode('-', $birthday);
+                $birthday = $date[2] .'/'.$date[1]. '/' .$date[0];            
+            }
         } else {
             $birthday = set_value('birthday');
         }
@@ -324,8 +324,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "email",
                 'id' => "email",
                 'value' => (set_value('email') ? set_value('email') : $user->Email),
-                'placeholder' => "Ej: j.pinobetancourt@gmail.com, cvillanueva@gmail.com",
-                'required' => true,  
+                'placeholder' => "Ej: j.pinobetancourt@gmail.com, cvillanueva@gmail.com",                
                 'max_length' => '255'
             ),                                   
             'birthday' => array(
@@ -334,8 +333,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "birthday",
                 'id' => "birthday",
                 'value' => $birthday,
-                'placeholder' => "Ej: 23/08/1974",
-                'required' => true,  
+                'placeholder' => "Ej: 23/08/1974",                
                 'max_length' => '10'
             ),                 
             'phone' => array(                
@@ -343,8 +341,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "phone",
                 'id' => "phone",
                 'value' => (set_value('phone') ? set_value('phone') : $user->Phone),
-                'placeholder' => "Ej: (0416) 000 00 00",
-                'required' => true,  
+                'placeholder' => "Ej: (0416) 000 00 00",                
                 'max_length' => '20'
             ),
             'phone2' => array(                
@@ -352,8 +349,7 @@ class Usuarios extends TD_Role_Controller {
                 'name' => "phone2",
                 'id' => "phone2",
                 'value' => (set_value('phone2') ? set_value('phone2') : $user->Phone2),
-                'placeholder' => "Ej: (0416) 000-0000",
-                'required' => true,  
+                'placeholder' => "Ej: (0416) 000-0000",                
                 'max_length' => '20'
             ),            
             'roles' => $roles,
@@ -475,7 +471,7 @@ class Usuarios extends TD_Role_Controller {
     /** Función encargada de eliminar usuarios */
     public function eliminar($ad_user_id = NULL) {
         
-    $this->need_role_authorization();
+        $this->need_role_authorization();
 
         //Si recibe esta variable por get, significa que solo se desea eliminar dicho registro
         if ($ad_user_id) {
@@ -540,10 +536,7 @@ class Usuarios extends TD_Role_Controller {
         
         //Validar el formulario, en caso de que no pase la prueba o no exista mostrarlo                
         $post_roles = isset($_POST['user']) ? $_POST['user'] : NULL ;            
-        
-        //var_dump($post_roles);
-        //die;
-        
+                
         if (!$post_roles) {                        
             $data = array();
             $data['title'] = $this->client_name . ' - Crear Rol';

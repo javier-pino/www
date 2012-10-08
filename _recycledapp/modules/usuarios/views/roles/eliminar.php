@@ -32,11 +32,17 @@
                 <tbody>
                     <?php foreach ($listar as $usuario) : ?>                                
                         <tr>                        
-                            <td>
-                                <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->ID ); ?>">
-                                    <?php echo $usuario->Finder; ?>
-                                </a>                            
-                            </td>
+                            <td>                                
+                                <?php if ($usuario->Finder != 'admin') :?>
+                                    <a class="table_link" href="<?php echo base_url('usuarios/roles/editar/'. $usuario->ID ); ?>">
+                                <?php endif; ?>
+
+                                        <?php echo $usuario->Finder; ?>
+
+                                <?php if ($usuario->Finder != 'admin') :?>
+                                         </a>                            
+                                <?php endif; ?>                                                        
+                            </td>                            
                             <td>
                                 <?php echo $usuario->Name; ?>                            
                             </td>                                                                                    
@@ -54,7 +60,9 @@
                                 <?php echo $usuario->Modules; ?>                            
                             </td>
                             <td>               
-                                <?php echo form_checkbox($usuario->Input) ?>                            
+                                <?php if ($usuario->Finder != 'admin') :?>                                
+                                    <?php echo form_checkbox($usuario->Input) ?>                            
+                                <?php endif; ?>                                
                             </td>
                         </tr>                                                        
                     <?php endforeach; ?>                   
