@@ -2,19 +2,9 @@
 
 class NivelesController extends CDSController
 {
-	public function actionCrear()
+	public function actionAprobar()
 	{
-		$this->render('crear');
-	}
-
-	public function actionEditar()
-	{
-		$this->render('editar');
-	}
-
-	public function actionEliminar()
-	{
-		$this->render('eliminar');
+		$this->render('aprobar');
 	}
 
 	public function actionListar()
