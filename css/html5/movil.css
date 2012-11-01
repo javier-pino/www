@@ -1,0 +1,506 @@
+/** Movil Layout Css, tomado del libro HTML 5, cosas básicas - Reglas básicas */
+* {
+    margin: 0px;
+    padding :0px;   
+}
+body {
+    text-align: center;     
+    min-width: 320px;
+    background-color: #3399CC;
+}
+a {
+    text-decoration: none;
+}
+
+/*   Sticky Footer Solution by Steve Hatcher - http://stever.ca
+- http://www.cssstickyfooter.com **********************************************/
+html, body, #main_wrapper {height: 100%;}
+body > #main_wrapper {height: auto; min-height: 100%;}
+.one_column {padding-bottom: 52px;}  /* debe ser del mismo alto que el footer */
+#main_footer {
+    position: relative;
+    margin-top: -52px; /* valor negativo del alto del footer */
+    height: 50px;
+    clear:both;
+} 
+/* CLEAR FIX*/
+.clear_fix:after {content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;}
+.clear_fix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clear_fix { height: 1%;}
+.clear_fix {display: block;}
+/* End hide from IE-mac */
+/* END FIX */
+
+/***************************************** Estructura general de la página ****/
+article.main {    
+    background-color: #FFF;        
+    margin: 0 10px 10px 10px;    
+    width: 300px;    
+    float: left;    
+    line-height: 1;
+}
+article.main footer {
+    text-align: right;    
+}
+.rounded-corners {
+    -moz-border-radius: 4px; /* Firefox */
+    -webkit-border-radius: 4px; /* Safari, Chrome */
+    border-radius: 4px; /* CSS3 */
+}
+figure { border: 1px inset #AAA; padding: 4px; }
+
+
+h1 {
+    font: bold 20px Verdana, Geneva, sans-serif;
+}
+h2 {
+    font: bold 14px Verdana, Geneva, sans-serif;    
+}
+
+.clear {
+    clear: both;
+}
+
+/** Layout de la página móvil */
+#main_wrapper {        
+    text-align: left;    
+}
+
+.one_column {
+    margin: 0 auto;    
+}
+#main_content {
+    padding-bottom: 10px;
+}
+
+/**************************************************** Header de la página ****/
+#main_header {      
+    background-color: #000;     
+    width: 100%; 
+    color: white;    
+}
+a.header {
+  color: white;
+  text-decoration: none;
+  font: 13px Verdana, Geneva, sans-serif;
+  background-color: #6A6A6C;  
+  background: url('../../images/header_button.png') repeat-x;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6A6A6C), to(#000));
+  background: -webkit-linear-gradient(top, #6A6A6C, #000);
+  background: -moz-linear-gradient(top, #6A6A6C, #000);
+  background: -ms-linear-gradient(top, #6A6A6C, #000);
+  background: -o-linear-gradient(top, #6A6A6C, #000);
+}
+.no-touch a.header:hover, .no-js a.header:hover {
+  background-color: #666;  
+  background: url('../../images/header_button_pressed.png') repeat-x;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#999));
+  background: -webkit-linear-gradient(top, #666, #999);
+  background: -moz-linear-gradient(top, #666, #999 );   
+  background: -ms-linear-gradient(top, #666, #999); 
+  background: -o-linear-gradient(top, #666, #999);  
+}
+a.header:active {
+  background-color: #999;  
+  background: url('../../images/header_button_pressed.png') repeat-x;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#000), to(#6A6A6C));
+  background: -webkit-linear-gradient(top, #000, #6A6A6C);
+  background: -moz-linear-gradient(top, #000, #6A6A6C );   
+  background: -ms-linear-gradient(top, #000, #6A6A6C); 
+  background: -o-linear-gradient(top, #000, #6A6A6C);  
+}
+#header_top, #header_bottom {            
+    text-align: center;     
+    margin-left: auto;
+    margin-right: auto;    
+    height: 32px;    
+}
+#header_logo {
+  background: url('../../images/movil_sprite.png') 0px 0px no-repeat;
+  width: 119px;
+  height: 16px;
+  margin-top: 6px;  
+}
+#header_bottom {
+    border-top: #FF6633 solid 2px;
+}
+.main_left {  
+    display: inline-block;
+    float: left;    
+    height: 18px;
+    padding: 3px 5px;    
+    text-align: left;
+    margin:4px; 
+}
+.main_right{      
+    display: inline-block;
+    float: right;    
+    height: 18px;
+    padding: 3px 5px;    
+    width: 115px;    
+    margin: 4px;    
+}
+
+/***************************** Navegación de la página - Ciudades, Viajes, etc*/
+.main_navigation {        
+    margin: 10px 0; 
+}
+.main_navigation div {
+    padding: 0px;
+    margin: 0px;
+}
+#nav_promo {
+    text-align: center;
+    margin: 0px auto;
+}
+a.nav {        
+    padding: 2px 0;        
+    font: 12px Verdana, Geneva, sans-serif;  
+    background-color: #FFFFFF;
+    color: #808184;
+    border: #808184 solid 1px;        
+    float: left; 
+}
+.no-touch a.nav:hover, .no-js a.nav:hover {        
+    background-color: #E6E7E8;
+    color: #808184;
+}
+a.nav:active {
+    background-color: #B5B7B9;    
+    color: white;
+}
+.main_navigation .logo {
+    width: 15px;
+    height: 15px;        
+    display: table-cell;
+    vertical-align: middle;
+    display: inline-block;
+}
+.main_navigation .text {    
+    display: inline-block;       
+}
+#nav_cities .logo{
+    background: url('../../images/movil_sprite.png') -131px 0px no-repeat;   
+}
+#nav_travel .logo{
+    background: url('../../images/movil_sprite.png') -147px 0px no-repeat;   
+}
+#nav_help .logo {
+    background: url('../../images/movil_sprite.png') -163px 0px no-repeat;  
+}
+
+/***************************************************************** Footer ****/
+#main_footer {            
+    /** No tocar el margin top*/    
+    text-align: center;          
+    width: 100%;    
+    color: white;
+    background-color: #333; 
+    border-top: #F63 solid 2px;
+    background: url('../../images/footer.png') repeat-x;
+    font: 12px Verdana, Geneva, sans-serif;
+    line-height: 1;
+    
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6A6A6C), to(#000));
+    background: -webkit-linear-gradient(top, #6A6A6C, #000);
+    background: -moz-linear-gradient(top, #6A6A6C, #000);
+    background: -ms-linear-gradient(top, #6A6A6C, #000);
+    background: -o-linear-gradient(top, #6A6A6C, #000);   
+}
+.footer_content  {
+    text-align: center;     
+    margin: 0 auto 5px auto;  
+}
+#main_footer .strong {
+    font-weight: bold;
+    padding: 5px 0 0 0 ;
+}
+
+
+/*******************************  Cuadros de la ventana de listar promociones */
+article.team {    
+    overflow: auto;    
+    width: 290px;
+    padding: 10px 0px 0px 10px;
+}
+article.team a {
+    color: #666666;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+}
+article.team strong{
+    color: #003399;    
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+article.team .leftside {
+    float: left;
+    width: 125px;
+    margin-right: 10px;
+    line-height: 1.4;    
+    /*display: table-cell;
+    vertical-align: middle;    
+    */
+}
+.leftside .title {
+    font-weight: bold;
+}
+article.team .centerside {
+    float: left;
+    width: 140px;    
+}
+article.team .rightside {
+    float: left;
+    width: 10px;
+    min-height: 100px;       
+}
+
+.rightside .arrow {
+    height: 17px;  
+    margin-top: 86px;    
+    /*background: url('../../images/movil_sprite.png') 0px -20px repeat; */
+    background: url('../../images/movil_sprite.png') -12px -25px repeat;    
+}
+article.team img {
+    width: 125px;
+}
+
+/**************************************** Cuadro de la ventana ver descuento  */
+.full {   
+    float: none;    
+    margin: 0 10px 10px 10px;
+    padding: 10px 10px;    
+    background-color: #FFF;                
+    line-height: 1.2;        
+}
+.full p {
+    margin: 0;    
+}
+.full .leftside {    
+    display: inline-block;
+    float: left;        
+    text-align: left;        
+}
+.full .rightside {
+    display: inline-block;
+    float: right;    
+    height: 18px;          
+}
+.no_padding {
+    margin: 0 10px;
+}
+#team_view_short, #team_view_buy, #team_view_details, #team_view_share {
+    margin-bottom: 10px; 
+    min-height: 20px;
+    background: #FFFFFF;
+}
+
+/******************************************** Especifico de ver descuento */
+#team_view {
+    color: #666666;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+#team_view_short header {
+    text-align: center;    
+}
+#team_view_title p {
+    font-weight: normal;
+    font-size: 14px;
+}
+#team_view_title strong { 
+    font-weight: bold;
+    font-size: 14px;
+}
+#team_view_short .detail {
+    font-weight: normal;
+    font-size: 12px;    
+    margin-top: 10px;        
+}
+.detail .leftside {
+    width: 180px;
+    text-align: left;
+}
+.detail .rightside {
+    width: 100px;
+    text-align: right;
+}
+#team_view_image img {    
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+    width: 280px;
+}
+#team_view_short footer {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 12px;    
+} 
+#team_view_buy {
+    background-color: #3399CC; 
+    display: table;
+}
+#team_view_buy a.team_button {
+    display: table-cell;
+    background-color: white;     
+    height: 28px;
+    text-align: center;    
+    vertical-align: middle;
+}
+a.team_button {
+  color: white;
+  text-decoration: none;
+  font-family: Verdana, Geneva, sans-serif;  
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #6A6A6C;  
+  background: url('../../images/teambuy_button.png') repeat-x;  
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFD200), to(#FF6633));
+  background: -webkit-linear-gradient(top, #FFD200, #FF6633);
+  background: -moz-linear-gradient(top, #FFD200, #FF6633);
+  background: -ms-linear-gradient(top, #FFD200, #FF6633);
+  background: -o-linear-gradient(top, #FFD200, #FF6633);  
+}
+
+.no-touch a.team_button:hover, .no-js a.team_button:hover {
+  background-color: #666;  
+  background: url('../../images/teambuy_button_pressed.png') repeat-x;  
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF6633), to(#FFD200));
+  background: -webkit-linear-gradient(top, #FF6633, #FFD200);
+  background: -moz-linear-gradient(top, #FF6633, #FFD200 );   
+  background: -ms-linear-gradient(top, #FF6633, #FFD200); 
+  background: -o-linear-gradient(top, #FF6633, #FFD200);    
+}
+a.team_button:active {
+  background-color: #999;  
+  background: url('../../images/teambuy_button_pressed.png') repeat-x;  
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF6633), to(#FFD200));
+  background: -webkit-linear-gradient(top, #FF6633, #FFD200);
+  background: -moz-linear-gradient(top, #FF6633, #FFD200 );   
+  background: -ms-linear-gradient(top, #FF6633, #FFD200); 
+  background: -o-linear-gradient(top, #FF6633, #FFD200);    
+}
+
+/*
+article.team_view a {
+    color: #666666;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+}
+article.team_view strong{
+    color: #003399;    
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+article.team_view .leftside {
+    float: left;
+    width: 125px;
+    margin-right: 10px;
+    line-height: 1.4;    
+    /*display: table-cell;
+    vertical-align: middle;    
+    */
+
+/*
+article.team_view .title {
+    font-weight: bold;
+}
+
+
+.rightside .arrow {
+    height: 17px;  
+    margin-top: 86px;    
+    background: url('../../images/movil_sprite.png') -12px -25px repeat;    
+/*}
+
+}*/
+
+
+/** 
+    MEDIA QUERIES, para cada dispositivo reglas particulares - Siempre  va de último
+    Tomado de: http://css-tricks.com/snippets/css/media-queries-for-standard-devices/
+    Eliminando desktop
+*/
+
+
+
+/* Smartphones (portrait and landscape) -----------  */
+@media all and (max-width : 639px) {
+    .one_column, #footer_content, #header_content {
+        width: 320px;
+    }   
+    a.nav {
+        margin: 0 5px 0 8px;
+        width: 90px;
+    }
+    .full {
+        width: 280px;
+    }
+    .no_padding {
+        width: 300px;
+    }
+}
+/* iPhone 4, Touch, 5 ----------- 640*960  */
+@media all and (-webkit-min-pixel-ratio : 1.5), all and (min-pixel-ratio : 1.5) {
+    .one_column, .footer_content, #header_content {
+        width: 640px;
+    }
+    a.nav {
+        margin: 0 10px;
+        width: 191px;        
+    }
+    .full {
+        width: 600px;
+    }
+    .no_padding {
+        width: 620px;
+    }
+}
+/* iPads *and tablets* (portrait and landscape) -----------  
+    Se espera comentar el max-width para que le sirva a otros dispositivos mas grandes
+*/
+@media all and (min-width : 640px) {
+    .one_column, .footer_content, #header_content {
+        width: 640px;
+    }
+    a.nav {
+        margin: 0 10px;
+        width: 191px;        
+    }
+    .full {
+        width: 620px;
+    }
+    .no_padding {
+        width: 640px;
+    }
+}
+/* iPads *and tablets* (portrait and landscape) -----------  
+    Se espera comentar el max-width para que le sirva a otros dispositivos mas grandes*/
+@media all and (min-width : 960px) {
+    .one_column, .footer_content, #header_content {
+        width: 960px;
+    } 
+    a.nav {
+        margin: 0 10px;
+        width: 298px;    
+    }
+    .full {
+        width: 920px;
+    }
+    .no_padding {
+        width: 940px;        
+    }
+}
+
+/** Para que el evento hover funcione correctamente, se utilizan las reglas .no-touch y .no-js
+Por lo que se duplica la regla pero afecta de la misma manera, EJ: .no-touch a:hover, .no-js a:hover { color: red; }
+*/
