@@ -29,10 +29,17 @@ return array(
                         // Se descomentó para que solo permita por localhost
 			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
-                //Se agrega el módulo creado para móvil
-              'movil' => array (
-                  'defaultController' => 'promociones',                  
+               
+               //Se agrega el módulo creado para móvil
+               'insumos' => array (
+                   'defaultController' => 'insumos',                  
+               ),               
+               'productos' => array (
+                  'defaultController' => 'productos',                  
                ),
+               'usuarios' => array (
+                  'defaultController' => 'usuarios',                  
+               ),            
 	),
 
 	// application components
@@ -61,10 +68,10 @@ return array(
             
                 //Configuracion de la base de datos de producción
                 'db'=>array(			
-			'connectionString' => 'mysql:host=mytudescuentonnew.cjqilh8qt90d.us-east-1.rds.amazonaws.com;dbname=neo_eldescuenton',
+			'connectionString' => 'mysql:host=localhost;dbname=cadena_suministros',
 			'emulatePrepare' => true,
-			'username' => 'tudescuenton',
-			'password' => 'NewbdtdS3',
+			'username' => 'root',
+			'password' => '',
 			'charset' => 'utf8',                        
 		),		
 		'errorHandler'=>array(

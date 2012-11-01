@@ -1,0 +1,14 @@
+<?php
+/* @var $this Conjunto_atributosController */
+
+$this->breadcrumbs=array(
+	'Conjunto Atributos'=>array('/productos/conjunto_atributos'),
+	'Crear',
+);
+?>
+<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+
+<p>
+	You may change the content of this page by modifying
+	the file <tt><?php echo __FILE__; ?></tt>.
+</p>
